@@ -3,13 +3,76 @@
 
 \title{Descrizione lavoro tesi}
 \author{Stefano Palombo}
-\date{13 February 2025 : 23:45}
+\date{13 February 2025}
 
 \begin{document}
 
 \maketitle
 
-\section{Filtro modelli popolari}
+\section{Introduzione}
+Negli ultimi anni, il campo dell'intelligenza artificiale e in particolare del machine learning ha subito una crescita esponenziale portando allo sviluppo di modelli sempre più complessi e performanti.\\
+Tra le varie piattaforme che rendono questi modelli più accessibili agli sviluppatori emerge Hugging Face, che offre, tramite librerie open-source, la possibilità di provarli e testarli per attività che spaziano tra la generazione e classificazione di testo naturale, classificazione di immagini, rilvezione di oggetti e molto altro.\\
+L'utilità di Hugging Face non risiede soltanto nella disponibilità di modelli, ma anche sulla vasta community che supporta ciascun modello impegnandosi non solo nello sviluppo, ma anche a renderlo fruibile ai developer tramite una documentazione dettagliata del modello, denominata model card. Quest'ultima ne descrive le caratteristiche, le limitazioni e i possibili casi d'uso del modello, includendo esempi pratici in linguaggio Python.\\
+L'esperimento di tesi si colloca proprio in questa sezione, dedicata a mostrare come applicare i modelli in scenari di applicazione pratica soffermadosi su metodi e modalità di caricamento, addestramento e inferenza.\\
+L'obbietivo è misurare quanto il codice presente sulle model card di Hugging Face sia effettivamente simile all'utilizzo reale del modello in progetti open-source presenti sulla piattaforma Github. Il processo si basa sulla generazione automatica di pattern di codice sorgente Python, composti prevalentemente da funzioni che mostrano la pipeline di impiego di un modello: dal caricamento del modello stesso, alla preparazione delle informazioni, fino alle fasi di addestramento e inferenza con eventuali parametri specifici.\\
+Per raggiungere questo scopo si è condotta una ricerca approfondita, tramite data-mining, degli script presenti nei repository GitHub che presentassero l'impiego di modelli di Hugging Face al fine di costruire un dataset strutturato da cui partire con l'analisi successiva...\\
+...\\
+
+
+La ricerca di queste sequenze di codice è utile per comprendere come i modelli vengono implementati generalmente dagli sviluppatori, automatizzare la generazioni di esempi pratici nel codice delle model card (possibile applicazione pratica è predirre proprio la card nel proprio progetto), ma soprattutto evidenziare le best practise sull'uso.
+(dire anche che nel caso di model card che non hanno codice la generazione è un arricchimento alla documentazione)
+
+
+\section{Terminologia e Motivazione}
+Di seguito si elenca il significato di alcuni termini comuni e abbreviazioni spesso menzionati nell'elaborato:
+\begin{itemize}
+    \item \textit{pattern ricorrenti} nei file Python, si intendo schemi, strutture e sequenze di codice che si ripetono frequentemente all'interno di uno o più script Python. Nel caso specifico dell'esperimento si considerano pattern le modalità d'uso dei modelli di Hugging Face in sequemze di codice per inizializzazione del modello stesso, tokenizzazione, gestione dell'inferenza.
+\end{itemize}
+
+Invece, per quanto riguarda le tecnologie adoperate emergono:
+\begin{itemize}
+    \item \textit{PTMs} (\textit{P}re-\textit{T}rained \textit{M}odel\textit{s}), ovvero i modelli pre-addestrati presenti sulla piattaforma HF, oggetto dell'esperimento
+    \item \textit{Hugging Face Model card}, si intende l'intera sezione di descrizione delle caratteristiche di un particolare modello con annessi eventuali esempi di codice Python sull'utilizzo. È visionabile direttamente al link di un derminato PTM, ex. \textit{https://huggingface.co/sentencetransformers/all-MiniLM-L6-v2}.\\
+    Per semplicità siccome l'esperimento verte solo sulla parte di card provvista di codice, si inderà solo quella sezione e non la parte espressa in linguaggio naturale.
+    
+    \item data mining
+    \item gli LLM \textit{L}arge \textit{L}anguage \textit{M}odels sono modelli di linguaggio che rappresentano un'innovazione significativa nell'ambito del \(NLP\), sono costruiti su reti neurali profonde, in particolare sull'architettura \textit{Transformer} che comprende le sequenti componenti principali:
+\begin{itemize}
+    \item \textit{Encoder} che elabora il testo in input generando rappresentazioni semantica. Nel dettaglio ogni parola viene convertita in token (porzioni parziali o totali della parola) e poi in un vettore (embedding) a cui si aggiunge un ulteriore vettore che ne indica la posizione all'interno della frase permettendo di mantenere l'ordine, successivamente vengono passati al primo sotto-modulo dell'encorder, \textit{Self-Attention Layer} che permette ad ogni parola di guardare tutte le altre per capire il contesto e poi la rete neurale \textit{Feed-Forward Network} trasforma la rappresentazione dell'attenzione in una forma più informativa ovvero catturando aspettiti sintattici più complessi e astratti.
+    
+    \item \textit{Decoder} che partendendo da queste rappresentazioni genera il testo dell'output. Il funzionamento prevede il modulo \textit{Masked Self-Attention Layer} che impedisce al modello di "guardare" le parole future durante la generazione, garantendo che la predizione successiva del prossimo token si basi solo su quelli già generati. La scelta su quale generare avviene grazie al \textit{Encoder-Decoder Attention Layer} che collega l'output al contesto dell'input ovvero alle rappresentazioni semantiche prodotte dall'encorder, fornendo in output una sorta di "mappa di attivazione" ovvero per ogni parole (token) c'è un punteggio che indica quele sia la più sensata ad essere scelta. Infine queste informazioni vengono ancora raffite dalla stessa \textit{Feed-Forward Network} che le passa alla funzione softmax per calcolare quale parola sia la più popolare.
+
+    \item \textit{Meccanisco dell'attenzione} sia che nell'encoder che nel decoder, appena menzionati, è presente questo sistema di calcolo dell'attenzione che consente all'LLM di pesare delle parole rispetto ad altre all'interno di una frase. Nel dettaglio una parola Q,V,K...
+
+Parlare del tokenizer
+\end{itemize}
+Gli LLM sono stati addestrati su un'enorme quantità di dati testuali provenienti da libri, articoli e pagine web acquisendo una forte conoscienza e trovando impiego in numerosi ambiti tra cui la generazione e completamento di codice, assistenza nella documentazione software e traduzioni, sintesi di testuali.\\
+- parametri (temperatura)
+- prompt engineering
+- allucinazioni (anche nel mio caso)
+\end{itemize}
+
+
+ESEMPIO DI CARD senza codice
+
+\section{Stato dell'arte}
+scelta file con feature engineering sul numero di import, funzioni e righe che contengono keyword
+llm fine tune 
+differenze
+
+
+invio al llm
+- riassunto del codice con un llm e un altro llm analizza il riassunto
+- ricerca pattern chunk dopo chunk
+
+\section{Produzione database file ?(tirocinio)}
+
+\section{Approccio}
+
+processo di mining, l'approccio non dipende dal dataset
+
+
+\subsection{Filtro modelli popolari}
 (AGGIUNGERE IMMAGINE DISTRIBUZIONE E METRICHE)\\
 \\
 Il database prodotto nella parte di tirocinio contiene per 7,325 PTM un totale di 453,260 file sorgenti Python. La distribuzione dei dati è fortemente asimmetrica presentando un'elevata concentrazione di modelli con un numero molto basso di codici mentre solo un ristretto numero di PTM è utilizzato in una quantità significatamente maggiore di file.\\
@@ -17,7 +80,7 @@ In particolare, la distribuzione segue un andamento tipico delle distribuzioni \
 Infatti dalle informazioni statiche la mediana è molto inferiore alla media e la deviazione standard elevata conferma l'alta variabilità tra i modelli. Inoltre, la notevole skewness evidenzia che la distribuzione è sbilanciata a destra, con alcuni modelli molto più utilizzati rispetto alla maggioranza ed infine La curtosi indica la presenza di numerosi outlier, ovvero modelli con un utilizzo estremamente superiore rispetto alla norma.\\
 Per evitare possibili distorsioni negli esperimenti successivi dell'approccio, si è deciso quindi di selezionare un sottoinsieme di PTM aventi un numero di file arbitrariamente maggiore di 100 formato da 1,064 modelli per un totale complessivo di 393,484 script.
 
-\section{Filtro dei codici sorgenti per lunghezza}
+\subsection{Filtro dei codici sorgenti per lunghezza}
 Per migliorare l'efficienza della successiva ricerca delle porzioni più rilevanti dei file si è implementato un processo di selezione degli script basato sulla lunghezza degli stessi. L'idea di base è che alcuni codici troppo brevi potrebbero non contenere informazioni significative sull'utilizzo di un particolare modello e allo stesso modo codici troppo lunghi potrebbero includere porzioni non pertinenti come ad esempio descrizioni e lunghi commenti.\\
 Il processo di filtraggio si basa nel considerare solo gli script che hanno una lunghezza in termini di linee di codice comprese nell'intervallo interquantile (IQR) utilizzando la mediana come valore centrale. In particolare, l'IQR è una misura statistica della dispersione dei dati così definita:
 \[
@@ -33,9 +96,9 @@ max\_length =mediana+0.25*IQR
 \]
 dove il fatore 0.25 permette di restringere l'intervallo intorno alla mediana senza essere troppo rigido.\\
 Quindi, questo range permette di selezione i file in base alla loro lunghezza attraverso una misura più robusta della media che permette di ecludere la presenza di eventuali outlier concentrandosi su insieme più omogeneo.\\
-Per ottimizzare il tempo di elaborazione dei vari calcoli, il processo viene eseguito in parallelo utilizzando il multithreading, in cui ogni thread lavora su un sottoinsieme di file riducendo l'attesa rispetto ad un'elaborazione sequenziale. Inoltre, l'uso di un \textit{ThreadPoolExecutor} garantisce una gestione automatica delle risorse senza preoccuparsi di eventuali race condition sui file e bilanciando il carico di lavoro tra i thread attivi.
+Per ottimizzare il tempo di elaborazione dei vari calcoli, il processo viene eseguito in parallelo utilizzando il multithreading perché si tratta maggiormente di operazioni di lettura e scrittura du disco (I/O bound), in cui ogni thread lavora su un sottoinsieme di file riducendo l'attesa rispetto ad un'elaborazione sequenziale. Inoltre, l'uso di un \textit{ThreadPoolExecutor} garantisce una gestione automatica delle risorse senza preoccuparsi di eventuali race condition sui file e bilanciando il carico di lavoro tra i thread attivi.
 
-\section{Ricerca dei migliori \textit{code snippet}}
+\subsection{Ricerca dei migliori \textit{code snippet}}
 L'LLM preso in considerazione per questo esperimento ha una finestra di contesto molto limitata, ovvero non riesce a gestire per ogni chiamata più di un certo numero di token in input e in output. Dove per chiamata si intende complessivamente la richiesta (prompt) comprensiva del codice da analizzare più la riposta.\\
 L'ipotecico approccio di far valutare al modello direttamente interi script Python, senza un pre-processing, potrebbe essere molto restrittivo in termini di possibili pattern di codice da scoprire nonché inefficiente perché gli stessi script potrebbero non avere un interessante senso semantico; limitandosi per esempio a menzionare il modello in esame con commenti e descrizioni senza poi impiegarlo realmente.\\
 Quindi, si è deciso di analizzare in maniera automatica ogni singolo file filtrato dalla sezione precedente con l'obiettivo di estrapolarne una porzione che fosse la più rappresentativa e rilevante in termini di utilizzo del modello, provando cioè a non considerare per esempio sezioni di debugging o funzioni di utility. Il processo di estrazione è basato sulla ricerca di parole chiavi legate fortemente all'addestramento, tokenizzazione e inferenza standard dei PTM presenti su HF. In particolare, l'implementazione è suddivisa in 5 fasi:\\
@@ -52,14 +115,95 @@ Quindi, si è deciso di analizzare in maniera automatica ogni singolo file filtr
 
     \item \textbf{Elaborazione parallela} anche in questa sezione per gestire un gran numero di file, il processo viene eseguito in parallelo sfruttando il multithreading per un'elaborazione più veloce.
 
-    \item \textbf{Salvataggio informazioni} JSON
-    
+    \item \textbf{Salvataggio informazioni}
 
-\section{LLM}
-    
+
+
+
+\subsection{Utilizzo dell'LLM}
+\subsubsection{Scelta e modalità}
+Nel contesto di questo esperimento, è stato sfruttuano un particolare LLM opensource per analizzare gli snippet di codice Python estratti precedentemente, al fine di indiduare schemi comuni nell'utilizzo dei PTM, tramite le principali librerie della piattaforma di Hugging Face.
+L'obiettivo è di isolare pattern significativi senza dover eseguire un'analisi manuale per ciascun modello esaminato, riducendo tempi e sforzi operativi.\\
+L'LLM adoperato per l'intero processo è \textbf{meta-llama/Llama-3.2-3B-Instruct}, sviluppato appunto da meta e appartenente alla collezione \textit{Llama 3.2}. Questa versione è progettata per essere utilizzata in compiti di tipo "instruct" (ovvero guidata da prompt specifici) e supporta l’elaborazione di un massimo di 4.096 token per ogni chiamata, suddivisi tra input e output.  
+Per accedere al modello, è stato utilizzato il servizio \textit{Hugging Face Inference API} un sistema consente di inviare richieste autenticate tramite token personale e ottenere risposte direttamente dai modelli open-source disponibili .\\
+Questo approccio offre diversi vantaggi:
+\begin{itemize}
+    \item Eliminazione vincoli hardware: eseguire un LLM di queste dimensioni su una macchina locale richiede un potenza di calcolo media-alta con la necessità di disporre di GPU dedicata con ampie quantità di VRAM
+    \item Semplicità d'uso e deployment immediato: non è neccassario installare localmente il modello nè configurare l'ambiente perché l'API fornisce un'interfaccia semplice per inviare e ricevere risposte facilmente integrabile nel proprio sistema
+    \item Ottimizzazione dei tempi di risposta: la richiesta remota comporta, ovviamente, una latenza di rete ma il tempo complessivo rimane sempre inferiore rispetto al gestire locale il modello (con un hardware limitato)
+\end{itemize}
+
+\subsubsection{Flusso di lavoro}
+L'idea di base è fornire, per ogni modello in esame, il maggior numero possibile di snippet, ccercando di massimizzare l’utilizzo dei token di input disponibili per l’LLM. Per garantire coerenza e confrontabilità tra le varie chiamate, viene utilizzato un \textit{prompt fisso} per tutti i modelli. Il prompt ha come unico scopo di istruire il modello a individuare eclusivamente pattern di codice, come importazioni comuni, definizioni di funzione e strutture tipiche di utilizzo dei modelli PTM.
+(foto prompt con annessa spiegazione)
+
+Per la scelta delle porzioni di codice da inviare al modello, viene effettuato un primo filtro: tramite espressioni regolari vengono selezionati solo gli snippet contenenti almeno il nome del modello e la keyword "def". Questo controllo permette agli snippet di essere pertinenti con il modello in esame e di includere almeno una definizione di funzione rendendolo rilevante per l'identificazione di pattern funzionali.\\
+L'input per l'LLM viene costruito in maniera incrementale, ovvero si aggiunge uno snippet alla stringa da inviare fin quando non si supera il limite di token previsto, calcolando con il \textit{tokenizer} le varie stringhe:
+\[
+allowed\_input\_tokens = max\_total\_tokens - system\_tokens - reserved\_output\_tokens
+\]
+dove
+\begin{itemize}
+    \item \textit{allowed\_input\_tokens} indica il numero di token disponibili, che aumenta con il crescere degli snippet selezionati
+    \item \textit{max\_total\_tokens} limite imposto dal modello ovvero 4096
+    \item \textit{system\_tokens} numero token riservati al prompt di sistema, considerabile costante trascurando il nome del modello
+    \item \textit{reserved\_output\_tokens} termine costante pari a 400
+\end{itemize}
+Per ogni risposta ricevuta dall'LLM, l'algoritmo implementa una semplice logica di validazione che consiste nel verificare se l'output contiene il nome del modello (sempre con l'intento di ricercare pattern pertinenti) e almeno le keyword "import" e "def" per assicurarsi che il risultato contenga sezioni di codice Python; se l'esito è negativo si effettuano 2 nuovi tentativi con lo stesso input (perché) ripentendo il controllo. Nel caso in cui anche dopo 3 tentivi complessivi il risultato non è pertinente si considera l'ultimo prodotto  
+
+
+L’output valido viene infine salvato in un file JSON strutturato, contenente:  
+\begin{itemize}
+    \item Il prompt utilizzato.
+    \item L'input inviato cioè gli snippet scelti randomicamente.
+    \item La risposta generata dall’LLM.
+    \item Il numero totale di token utilizzati e i tentativi effettuati.
+\end{itemize}
+
+\subsubsection{Esempio di card generata}
+
 
     
 \end{itemize}
+
+\section{Validazione e risultati}
+
+L'obbietivo principale è valutare l'efficacia e la qualità delle model card generate automaticamente dall'LLM rispetto a quelle ufficiali presenti sulla piattaforma di Hugging Face.  Questo confronto ha lo scopo di misurare quanto i codici creati siano pertinenti e, soprattutto, utili per gli sviluppatori finali, che si affidano a questi esempi per comprendere come utilizzare correttamente i PTM.\\
+Per ottenere le porzioni di codice delle model card di HF, si è sviluppato un semplice script che utilizza la libreria \textit{BeautifulSoup} per effettuare web scarping delle pagine HTML dei vari PTMs. Ad ogni iterazione si ricerca il tag \textit{\textless code\textgreater} e quando c'è corrispondenza si controlla che il risultato sia effettivamente del linguaggio Python, quindi semplicemente si cercano nella stringa le keyword "import", "from" e "def".\\
+Si noti che per ogni PTM analizzato lo scraper potrebbe trovare anche più di uno snippet Python. perché nella stessa model card potrebbe venir illustrato come utilizzare il modello in modi diversi, per esempio, nella fase di importazione si mostrano diverse librerie come anche nella fase di pipeline di esecuzione.
+
+
+Dopo aver raccolto le card ufficiali, si è proceduti nel valutare quanto fossero simili a quelle generate dall'LLM. Sono state impiegate tre metriche di confronto che valutano la somiglianza a livello lessicale, semantico e strutturale del codice:
+\begin{itemize}
+    \item METEOR (Metric for Evaluation of Translation with Explicit ORdering) è progettata principalmente per la valuzione di traduzioni automatiche confrontando le parole secondo un matching flessibile ovvero la corrispondenza si basa su sinonimi, stemmatura e ordine con cui compaiono. Questa flessibilità permette di catturare non solo l'aspetto sintattico ma anche una parziale sensibilità semantica perché, per esempio, la definizione di una funzione potrebbe essere scritta in due modi diversi ma rappresentare lo stesso significato.\\
+    Il calcolo della metriche è il seguente:
+    \[
+    METEOR = (1-penality)*F_mean
+    \]
+
+    
+    \item CodeBLEU
+    \item cosine similarity con Embedding
+\end{itemize}
+
+
+\subsection{Risultati}
+grafici e statiche e motivazioni perché sono basse
+
+
+\section{Limitazioni}
+- llm scarso\\
+- rate limit API
+
+
+\section{Conclusioni}
+
+\section{Riferimenti}
+\begin{itemize}
+    \item \textit{CodeXHug}
+    \item \textit{On the use of Large Language Models in Model-Driven Engineering}
+\end{itemize}
+
 
 
 \end{document}
