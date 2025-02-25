@@ -1,5 +1,8 @@
 \documentclass{article}
 \usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{cite}
 
 \title{Descrizione lavoro tesi}
 \author{Stefano Palombo}
@@ -14,63 +17,68 @@ Negli ultimi anni, il campo dell'intelligenza artificiale e in particolare del m
 Tra le varie piattaforme che rendono questi modelli più accessibili agli sviluppatori emerge Hugging Face, che offre, tramite librerie open-source, la possibilità di provarli e testarli per attività che spaziano tra la generazione e classificazione di testo naturale, classificazione di immagini, rilvezione di oggetti e molto altro.\\
 L'utilità di Hugging Face non risiede soltanto nella disponibilità di modelli, ma anche sulla vasta community che supporta ciascun modello impegnandosi non solo nello sviluppo, ma anche a renderlo fruibile ai developer tramite una documentazione dettagliata del modello, denominata model card. Quest'ultima ne descrive le caratteristiche, le limitazioni e i possibili casi d'uso del modello, includendo esempi pratici in linguaggio Python.\\
 L'esperimento di tesi si colloca proprio in questa sezione, dedicata a mostrare come applicare i modelli in scenari di applicazione pratica soffermadosi su metodi e modalità di caricamento, addestramento e inferenza.\\
-L'obbietivo è misurare quanto il codice presente sulle model card di Hugging Face sia effettivamente simile all'utilizzo reale del modello in progetti open-source presenti sulla piattaforma Github. Il processo si basa sulla generazione automatica di pattern di codice sorgente Python, composti prevalentemente da funzioni che mostrano la pipeline di impiego di un modello: dal caricamento del modello stesso, alla preparazione delle informazioni, fino alle fasi di addestramento e inferenza con eventuali parametri specifici.\\
-Per raggiungere questo scopo si è condotta una ricerca approfondita, tramite data-mining, degli script presenti nei repository GitHub che presentassero l'impiego di modelli di Hugging Face al fine di costruire un dataset strutturato da cui partire con l'analisi successiva...\\
+L'obbietivo è misurare quanto il codice presente sulle model card di Hugging Face sia effettivamente simile all'utilizzo reale del modello in progetti open-source presenti sulla piattaforma Github. Il processo si basa sulla generazione automatica di pattern ricorrenti di codice sorgente Python, intesi come schemi e sequenze formate prevalentemente da funzioni che mostrano la pipeline di impiego di un modello: dal caricamento del modello stesso, alla preparazione dei dati, fino alle fasi di addestramento e inferenza con eventuali parametri specifici...\\
 ...\\
+Per raggiungere questo scopo è stata condotta una ricerca approfondita, tramite data-mining, degli script presenti nei repository GitHub che presentassero l'impiego di modelli di Hugging Face al fine di costruire un dataset strutturato da cui partire con l'analisi successiva...\\
+La ricerca di queste sequenze di codice è utile per comprendere come i modelli vengono generalmente implementati dagli sviluppatori, scoprendo potenzialmente tecniche specifiche d'utilizzo, best practise ed eventualti iperparametri che non sono direttamente mostrati nelle varie documentazioni.
 
 
-La ricerca di queste sequenze di codice è utile per comprendere come i modelli vengono implementati generalmente dagli sviluppatori, automatizzare la generazioni di esempi pratici nel codice delle model card (possibile applicazione pratica è predirre proprio la card nel proprio progetto), ma soprattutto evidenziare le best practise sull'uso.
-(dire anche che nel caso di model card che non hanno codice la generazione è un arricchimento alla documentazione)
-
-
-\section{Terminologia e Motivazione}
-Di seguito si elenca il significato di alcuni termini comuni e abbreviazioni spesso menzionati nell'elaborato:
-\begin{itemize}
-    \item \textit{pattern ricorrenti} nei file Python, si intendo schemi, strutture e sequenze di codice che si ripetono frequentemente all'interno di uno o più script Python. Nel caso specifico dell'esperimento si considerano pattern le modalità d'uso dei modelli di Hugging Face in sequemze di codice per inizializzazione del modello stesso, tokenizzazione, gestione dell'inferenza.
-\end{itemize}
-
-Invece, per quanto riguarda le tecnologie adoperate emergono:
+\section{Tecnologie e Motivazione}
+In questa sezione verrano mostrate le principali tecnologie e i mezzi ricorrenti alla base del processo di approccio:
 \begin{itemize}
     \item \textit{PTMs} (\textit{P}re-\textit{T}rained \textit{M}odel\textit{s}), ovvero i modelli pre-addestrati presenti sulla piattaforma HF, oggetto dell'esperimento
-    \item \textit{Hugging Face Model card}, si intende l'intera sezione di descrizione delle caratteristiche di un particolare modello con annessi eventuali esempi di codice Python sull'utilizzo. È visionabile direttamente al link di un derminato PTM, ex. \textit{https://huggingface.co/sentencetransformers/all-MiniLM-L6-v2}.\\
-    Per semplicità siccome l'esperimento verte solo sulla parte di card provvista di codice, si inderà solo quella sezione e non la parte espressa in linguaggio naturale.
-    
-    \item data mining
-    \item gli LLM \textit{L}arge \textit{L}anguage \textit{M}odels sono modelli di linguaggio che rappresentano un'innovazione significativa nell'ambito del \(NLP\), sono costruiti su reti neurali profonde, in particolare sull'architettura \textit{Transformer} che comprende le sequenti componenti principali:
+    \item \textit{Hugging Face Model card}, rappresenta l'intera sezione di descrizione delle caratteristiche di un particolare modello con annessi eventuali esempi di codice Python sull'utilizzo. È visionabile direttamente al link di un derminato PTM, ex. \textit{https://huggingface.co/sentencetransformers/all-MiniLM-L6-v2}.\\
+    In particolare, le principali informazioni inserite nella card riguardano le licenze di sviluppo, task di utilizzo, riferimenti ai dataset di pre-training, limitazioni sui token di elaborazione, eventuali modalità di fine-tuning, inferenza ecc...
+    \item Data mining
+    \item gli LLM \textit{L}arge \textit{L}anguage \textit{M}odels sono modelli di linguaggio che rappresentano un'innovazione significativa nell'ambito del \(NLP\) (Natural Language Processing), sono costruiti su reti neurali profonde, in particolare sull'architettura \textit{Transformer} che comprende le sequenti componenti principali \cite{di2025use}:
 \begin{itemize}
     \item \textit{Encoder} che elabora il testo in input generando rappresentazioni semantica. Nel dettaglio ogni parola viene convertita in token (porzioni parziali o totali della parola) e poi in un vettore (embedding) a cui si aggiunge un ulteriore vettore che ne indica la posizione all'interno della frase permettendo di mantenere l'ordine, successivamente vengono passati al primo sotto-modulo dell'encorder, \textit{Self-Attention Layer} che permette ad ogni parola di guardare tutte le altre per capire il contesto e poi la rete neurale \textit{Feed-Forward Network} trasforma la rappresentazione dell'attenzione in una forma più informativa ovvero catturando aspettiti sintattici più complessi e astratti.
     
     \item \textit{Decoder} che partendendo da queste rappresentazioni genera il testo dell'output. Il funzionamento prevede il modulo \textit{Masked Self-Attention Layer} che impedisce al modello di "guardare" le parole future durante la generazione, garantendo che la predizione successiva del prossimo token si basi solo su quelli già generati. La scelta su quale generare avviene grazie al \textit{Encoder-Decoder Attention Layer} che collega l'output al contesto dell'input ovvero alle rappresentazioni semantiche prodotte dall'encorder, fornendo in output una sorta di "mappa di attivazione" ovvero per ogni parole (token) c'è un punteggio che indica quele sia la più sensata ad essere scelta. Infine queste informazioni vengono ancora raffite dalla stessa \textit{Feed-Forward Network} che le passa alla funzione softmax per calcolare quale parola sia la più popolare.
 
-    \item \textit{Meccanisco dell'attenzione} sia che nell'encoder che nel decoder, appena menzionati, è presente questo sistema di calcolo dell'attenzione che consente all'LLM di pesare delle parole rispetto ad altre all'interno di una frase. Nel dettaglio una parola Q,V,K...
-
-Parlare del tokenizer
+    \item \textit{Meccanisco dell'attenzione} sia che nell'encoder che nel decoder è presente questo sistema di calcolo dell'attenzione che consente all'LLM di pesare delle parole rispetto ad altre all'interno di una frase. Ogni vocabolo del linguaggio naturale viene visto su tre prospettive diverse Q,V,K \cite{vaswani2017attention}
 \end{itemize}
-Gli LLM sono stati addestrati su un'enorme quantità di dati testuali provenienti da libri, articoli e pagine web acquisendo una forte conoscienza e trovando impiego in numerosi ambiti tra cui la generazione e completamento di codice, assistenza nella documentazione software e traduzioni, sintesi di testuali.\\
-- parametri (temperatura)
-- prompt engineering
-- allucinazioni (anche nel mio caso)
+Nella descrizione delle principali componenti si è parlato indistintamente tra parole e token, ma è fondamentale sottolineare che non sono equivalenti. Un token può essere:
+\begin{itemize}
+    \item una parola intera
+    \item porzioni di una parola cioè frammenti come prefissi e suffissi 
+    \item singoli caratteri per lingue come il cinese oppure per simboli speciali
+    \item subword ovvero combinazioni di lettere che si trovano in più parole
+\end{itemize}
+Per trasformare le parole del linguaggio naturale in token si utilizzare un tokenizer ovvero una componente che attraverso un pre-processing del testo (rimuozione spazi e normalizzazione) 
+Gli LLM sono stati addestrati su un'enorme quantità di dati testuali provenienti da libri, articoli e pagine web acquisendo una forte conoscienza e trovando impiego in numerosi ambiti tra cui la generazione e completamento di codice, assistenza nella documentazione software e traduzioni, sintesi di testuali partendo sempre da un input testuale.\\
+Impartire al modello il compito da compiere non è banale per questo si parla di \textit{prompt engineering} come l'arte del formulare input che guidino l'LLM verso le risposte desiderate. Questo può avvenire secondo queste principali tecniche:
+\begin{itemize}
+    \item \textit{Chain-of-Thought (CoT)} ovvero suddivide problemi complessi in passaggi più semplici per favorire nei confronti dell'LLM un ragionamento sequenziale e coerente.
+    \item \textit{Few-shot prompting}: inserire nell'input pochi esempi per orientarlo nello svolgimento di un compito, riducendo la necessità di un addestramento approfondito (fine-tuning)
+    \item \textit{Zero-shot prompting} al contrario del precedente, affida al modello un compito senza fornire esempi, sfruttandone la sua capacità di generalizzare.
+\end{itemize}
+Nel prompt, per ottenere risposte accurate e contestualizzate in specifici ambiti, solitamente si assegna un ruolo 
+
+Un'importante limitazione di questi modelli di linguaggio sono le \textit{allucinazioni} ovvero un comportanmento del LLM che tende a generare risposte plausibili ma sbagliate o prive di fondamento logico. Ciò può essere dovuto a comprensione errata del contesto oppure alla difficoltà nell’interpretare input ambigui o complessi. Nel contesto di questo esperimento un esempio di allucizione si potrebbe verificare quando l'LLM riceve in input del codice Python e deve estrapolarne pattern d'uso ricorrenti ma genera enera funzioni che non hanno alcun collegamento con il codice originale. Questo può essere dovuto all’incapacità del modello di generalizzare correttamente il compito assegnato. Per mitigare questo problema, si è specificato nel prompt cosa fare quando il modello non è in grado di rispondere. Ad esempio, si può esplicitamente indicare che, in caso di incertezza, bisogna restituire una stringa vuota in modo che la successiva analisi dell'output sia più semplice.\\
+
+- parametri (temperatura, top p)
+
+
+
 \end{itemize}
 
+Oltre alla misurazione di quanto la generazione automatica di codice che rappresenti l'uso del modello sia simile a quella ufficiale presente sulla piattaforma Huggig Face, i risultati condotti dall'esperimento possono, a mio avviso, essere una fonte di arricchimento soprattutto nelle model card in cui non ci sono esempi di codice.
 
 ESEMPIO DI CARD senza codice
 
 \section{Stato dell'arte}
-scelta file con feature engineering sul numero di import, funzioni e righe che contengono keyword
-llm fine tune 
-differenze
-
-
+- paper teams (come mi differenzio)
+- llm fine tune 
 invio al llm
 - riassunto del codice con un llm e un altro llm analizza il riassunto
 - ricerca pattern chunk dopo chunk
 
-\section{Produzione database file ?(tirocinio)}
+\section{Produzione dataset file Github}
+
+
 
 \section{Approccio}
-
-processo di mining, l'approccio non dipende dal dataset
-
 
 \subsection{Filtro modelli popolari}
 (AGGIUNGERE IMMAGINE DISTRIBUZIONE E METRICHE)\\
@@ -121,17 +129,6 @@ Quindi, si è deciso di analizzare in maniera automatica ogni singolo file filtr
 
 
 \subsection{Utilizzo dell'LLM}
-\subsubsection{Scelta e modalità}
-Nel contesto di questo esperimento, è stato sfruttuano un particolare LLM opensource per analizzare gli snippet di codice Python estratti precedentemente, al fine di indiduare schemi comuni nell'utilizzo dei PTM, tramite le principali librerie della piattaforma di Hugging Face.
-L'obiettivo è di isolare pattern significativi senza dover eseguire un'analisi manuale per ciascun modello esaminato, riducendo tempi e sforzi operativi.\\
-L'LLM adoperato per l'intero processo è \textbf{meta-llama/Llama-3.2-3B-Instruct}, sviluppato appunto da meta e appartenente alla collezione \textit{Llama 3.2}. Questa versione è progettata per essere utilizzata in compiti di tipo "instruct" (ovvero guidata da prompt specifici) e supporta l’elaborazione di un massimo di 4.096 token per ogni chiamata, suddivisi tra input e output.  
-Per accedere al modello, è stato utilizzato il servizio \textit{Hugging Face Inference API} un sistema consente di inviare richieste autenticate tramite token personale e ottenere risposte direttamente dai modelli open-source disponibili .\\
-Questo approccio offre diversi vantaggi:
-\begin{itemize}
-    \item Eliminazione vincoli hardware: eseguire un LLM di queste dimensioni su una macchina locale richiede un potenza di calcolo media-alta con la necessità di disporre di GPU dedicata con ampie quantità di VRAM
-    \item Semplicità d'uso e deployment immediato: non è neccassario installare localmente il modello nè configurare l'ambiente perché l'API fornisce un'interfaccia semplice per inviare e ricevere risposte facilmente integrabile nel proprio sistema
-    \item Ottimizzazione dei tempi di risposta: la richiesta remota comporta, ovviamente, una latenza di rete ma il tempo complessivo rimane sempre inferiore rispetto al gestire locale il modello (con un hardware limitato)
-\end{itemize}
 
 \subsubsection{Flusso di lavoro}
 L'idea di base è fornire, per ogni modello in esame, il maggior numero possibile di snippet, ccercando di massimizzare l’utilizzo dei token di input disponibili per l’LLM. Per garantire coerenza e confrontabilità tra le varie chiamate, viene utilizzato un \textit{prompt fisso} per tutti i modelli. Il prompt ha come unico scopo di istruire il modello a individuare eclusivamente pattern di codice, come importazioni comuni, definizioni di funzione e strutture tipiche di utilizzo dei modelli PTM.
@@ -168,27 +165,67 @@ L’output valido viene infine salvato in un file JSON strutturato, contenente:
 
 \section{Validazione e risultati}
 
-L'obbietivo principale è valutare l'efficacia e la qualità delle model card generate automaticamente dall'LLM rispetto a quelle ufficiali presenti sulla piattaforma di Hugging Face.  Questo confronto ha lo scopo di misurare quanto i codici creati siano pertinenti e, soprattutto, utili per gli sviluppatori finali, che si affidano a questi esempi per comprendere come utilizzare correttamente i PTM.\\
-Per ottenere le porzioni di codice delle model card di HF, si è sviluppato un semplice script che utilizza la libreria \textit{BeautifulSoup} per effettuare web scarping delle pagine HTML dei vari PTMs. Ad ogni iterazione si ricerca il tag \textit{\textless code\textgreater} e quando c'è corrispondenza si controlla che il risultato sia effettivamente del linguaggio Python, quindi semplicemente si cercano nella stringa le keyword "import", "from" e "def".\\
-Si noti che per ogni PTM analizzato lo scraper potrebbe trovare anche più di uno snippet Python. perché nella stessa model card potrebbe venir illustrato come utilizzare il modello in modi diversi, per esempio, nella fase di importazione si mostrano diverse librerie come anche nella fase di pipeline di esecuzione.
 
 
+\subsection{Scelta LLM e modalità}
+Nel contesto di questo esperimento, è stato sfruttuano un particolare LLM opensource per analizzare gli snippet di codice Python estratti precedentemente, al fine di indiduare schemi comuni nell'utilizzo dei PTM, tramite le principali librerie della piattaforma di Hugging Face.
+L'obiettivo è di isolare pattern significativi senza dover eseguire un'analisi manuale per ciascun modello esaminato, riducendo tempi e sforzi operativi.\\
+L'LLM adoperato per l'intero processo è \textbf{meta-llama/Llama-3.2-3B-Instruct}, sviluppato appunto da meta e appartenente alla collezione \textit{Llama 3.2}. Questa versione è progettata per essere utilizzata in compiti di tipo "instruct" (ovvero guidata da prompt specifici) e supporta l’elaborazione di un massimo di 4.096 token per ogni chiamata, suddivisi tra input e output.  
+Per accedere al modello, è stato utilizzato il servizio \textit{Hugging Face Inference API} un sistema consente di inviare richieste autenticate tramite token personale e ottenere risposte direttamente dai modelli open-source disponibili .\\
+Questo approccio offre diversi vantaggi:
+\begin{itemize}
+    \item Eliminazione vincoli hardware: eseguire un LLM di queste dimensioni su una macchina locale richiede un potenza di calcolo media-alta con la necessità di disporre di GPU dedicata con ampie quantità di VRAM
+    \item Semplicità d'uso e deployment immediato: non è neccassario installare localmente il modello nè configurare l'ambiente perché l'API fornisce un'interfaccia semplice per inviare e ricevere risposte facilmente integrabile nel proprio sistema
+    \item Ottimizzazione dei tempi di risposta: la richiesta remota comporta, ovviamente, una latenza di rete ma il tempo complessivo rimane sempre inferiore rispetto al gestire locale il modello (con un hardware limitato)
+\end{itemize}
+\subsection{Valutazione}
+L'obbietivo principale è valutare l'efficacia e la qualità delle model card generate automaticamente dall'LLM rispetto a quelle ufficiali presenti sulla piattaforma di Hugging Face.  Questo confronto ha lo scopo di misurare quanto i codici creati siano pertinenti e, soprattutto, utili per gli sviluppatori finali, che si potranno affidare a questi esempi per comprendere come utilizzare correttamente i PTM.
+
+\subsubsection{Costruzione dataset di test}
+Nel dump \cite{ait_hfcommunity_2023} nonostance ci fosse la feature "card data" ovvero le informazioni riguardanti la model card di ogni PTM, non erano presenti gli snippet di codice Python che mostrano l'utilizzo del modello specifico in un esempio di applicazione.\\  
+Quindi, per ottenere queste sezioni della card di HF, si è sviluppato un semplice script che utilizza la libreria \textit{BeautifulSoup}\cite{Richardson_Beautiful_Soup} per effettuare web scarping delle pagine HTML dei PTM popolari selezioni per l'esperimento. Ad ogni iterazione si ricerca il tag \textit{\textless code\textgreater} e quando avviene la corrispondenza si controlla che il risultato sia effettivamente appartenente al linguaggio Python, quindi semplicemente verificando che nella stringa siano presenti le keyword "import", "from" e "def".\\
+Si noti che per ogni PTM analizzato lo scraper potrebbe trovare anche più di uno snippet Python, perché nella stessa model card potrebbe venir illustrate diverse pipeline di utilizzo: dall'importazione con diverse librerie (per esempio \textit{transformers} e \textit{sentence\_transformers}) fino a metodi di encoding tramite embeddings.\\
+Il dataset è strutturato secondo il seguente formato JSON:\\
+\\
+Dall'analisi effettuata il risultato è di 751 modelli che nelle proprie model card contengano almeno uno snippet di codice Python rispetto ai 1064 di partenza. La differenza è composta quindi da PTM che nonostante siano mediamente popolari sull'utilizzo pratico in progetti open-source abbiano una documentazione probabilmente non completa ed efficace agli sviluppatori; ciò motiva maggiormente lo scopo generale di questo studio.
+
+\subsubsection{Metriche}
 Dopo aver raccolto le card ufficiali, si è proceduti nel valutare quanto fossero simili a quelle generate dall'LLM. Sono state impiegate tre metriche di confronto che valutano la somiglianza a livello lessicale, semantico e strutturale del codice:
 \begin{itemize}
-    \item METEOR (Metric for Evaluation of Translation with Explicit ORdering) è progettata principalmente per la valuzione di traduzioni automatiche confrontando le parole secondo un matching flessibile ovvero la corrispondenza si basa su sinonimi, stemmatura e ordine con cui compaiono. Questa flessibilità permette di catturare non solo l'aspetto sintattico ma anche una parziale sensibilità semantica perché, per esempio, la definizione di una funzione potrebbe essere scritta in due modi diversi ma rappresentare lo stesso significato.\\
+    \item \textbf{METEOR} (Metric for Evaluation of Translation with Explicit ORdering) è progettata principalmente per la valuzione di traduzioni automatiche confrontando le parole secondo un matching flessibile ovvero la corrispondenza si basa su sinonimi, stemmatura e ordine con cui compaiono. Questa flessibilità permette di catturare non solo l'aspetto sintattico ma anche una parziale sensibilità semantica perché, per esempio, la definizione di una funzione potrebbe essere scritta in due modi diversi ma rappresentare lo stesso significato.\\
     Il calcolo della metriche è il seguente:
     \[
-    METEOR = (1-penality)*F_mean
+    \text{METEOR} = (1 - \text{penalty}) \cdot F_{\text{mean}}
     \]
-
+    dove:
+    \[
+        \text{penalty} = \gamma \left( \frac{\text{numero di chunk}}{\text{numero di parole corrispondenti}} \right)^\beta
+    \]
+    \[
+        F_{\text{mean}} = \frac{10 \cdot P \cdot R}{9P + R}
+    \]
+    \begin{itemize}
+        \item \textbf{P (Precisione)} = $\frac{\text{numero di parole corrispondenti}}{\text{numero totale di parole nel candidato}}$
+        \item \textbf{R (Richiamo)} = $\frac{\text{numero di parole corrispondenti}}{\text{numero totale di parole nella referenza}}$
+    \end{itemize}
+    La penalità considera la frammentazione e la disposizione delle parole tra il testo canditato (la card generata dall'LLM) e quello referente (card ufficiale su HF). In particolare il numero di chunk rappresenta quante sequenze di parole corrispondenti ci sono, quindi, più è frammentata l'affinità, maggiori saranno i chunk. Gamma e beta, invece, sono parametri scelti empiricamente in base all'implementazione e bilanciano il livello della penalità che, in generale, è bassa o quasi nulla quando le parole che fanno match sono sono tutte in questa, viceversa se sono sparse in disordine aumenta.\\
+    Successivamente la media armonica pesata è progettata per dare più importanza al richiamo rispetto alla precisione perché nelle applicazioni pratiche di traduzioni e descrizioni è spesso più dannosso non considerare informazioni importanti (basso richiamo) rispetto ad includere termini e dettagli aggiungi non necessari (bassa precisione). Quindi, si preferisce considerare le descrizioni (card) potenzialmente più utili ovvero quelle che forniscono più informazioni dettagliate a costo di qualche aggiunta superflua e non strettamente necessaria, come posso essere, in questo contesto, l'eventuale presenza di funzioni Python di utility che non riguardano l'utilizzo dei PTM in maniera diretta.\\
+    La metrica METEOR, in generale, non è ideale per il confronto di codice sorgente in quanto è progettata per la valuzione tra stringhe del linguaggio naturale attraverso un dizionario che non è specifico del linguaggio Python. Ma ci sono comunque dei motivi validi per considerlarla nell'esperimento:
+    \begin{itemize}
+        \item parziale sensibilità semantica con l'utilizzo dei sinonimi per variabili e soprattutto per definizione di funzioni
+        \item l'importanza del richiamo per verificare che il codice generato copra tutti gli elementi del codice di riferimento (pipeline di utilizzo del PTM)
+        \item la penalizzazione sull'ordine delle istruzioni del codice sorgente può essere abbastanza rilevante che se in genere l'organizzazione delle istruzioni è flessbile
+    \end{itemize}
+    Nel complesso potrebbe aiutare a catturare aspetti che altre metriche non riescono, ma deve essere considerata come parte di un multi-approccio e non come una soluzione unica ed ideale.
     
-    \item CodeBLEU
+    \item CodeBLEU \cite{ren2020codebleumethodautomaticevaluation} è una metrica progettata, invece, per valutare la qualità di un codice generato candidato rispetto a un riferimento
     \item cosine similarity con Embedding
 \end{itemize}
 
 
 \subsection{Risultati}
-grafici e statiche e motivazioni perché sono basse
+research question
+grafici e statiche e motivazioni perché sono basse (pensate per utilizzo umano)
 
 
 \section{Limitazioni}
@@ -196,14 +233,16 @@ grafici e statiche e motivazioni perché sono basse
 - rate limit API
 
 
-\section{Conclusioni}
-
-\section{Riferimenti}
+\section{Conclusioni e sviluppi futuri}
+sviluppi:
 \begin{itemize}
-    \item \textit{CodeXHug}
-    \item \textit{On the use of Large Language Models in Model-Driven Engineering}
+    \item far generare tutta la card non solo codice
+    \item possibile applicazione pratica è predirre proprio la card nel proprio progetto
 \end{itemize}
 
+\bibliographystyle{plainurl}
+\bibliography{riferimenti}
+\appendix
 
 
 \end{document}
