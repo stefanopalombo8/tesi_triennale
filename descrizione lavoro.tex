@@ -1,8 +1,33 @@
 \documentclass{article}
-\usepackage{graphicx} % Required for inserting images
+\usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{hyperref}
 \usepackage{cite}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstdefinelanguage{json}{
+    basicstyle=\ttfamily\small,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=5pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!10},
+    literate=
+     *{0}{{{\color{blue}0}}}{1}
+      {1}{{{\color{blue}1}}}{1}
+      {2}{{{\color{blue}2}}}{1}
+      {3}{{{\color{blue}3}}}{1}
+      {4}{{{\color{blue}4}}}{1}
+      {5}{{{\color{blue}5}}}{1}
+      {6}{{{\color{blue}6}}}{1}
+      {7}{{{\color{blue}7}}}{1}
+      {8}{{{\color{blue}8}}}{1}
+      {9}{{{\color{blue}9}}}{1},
+}
 
 \title{Descrizione lavoro tesi}
 \author{Stefano Palombo}
@@ -17,55 +42,85 @@ Negli ultimi anni, il campo dell'intelligenza artificiale e in particolare del m
 Tra le varie piattaforme che rendono questi modelli più accessibili agli sviluppatori emerge Hugging Face, che offre, tramite librerie open-source, la possibilità di provarli e testarli per attività che spaziano tra la generazione e classificazione di testo naturale, classificazione di immagini, rilvezione di oggetti e molto altro.\\
 L'utilità di Hugging Face non risiede soltanto nella disponibilità di modelli, ma anche sulla vasta community che supporta ciascun modello impegnandosi non solo nello sviluppo, ma anche a renderlo fruibile ai developer tramite una documentazione dettagliata del modello, denominata model card. Quest'ultima ne descrive le caratteristiche, le limitazioni e i possibili casi d'uso del modello, includendo esempi pratici in linguaggio Python.\\
 L'esperimento di tesi si colloca proprio in questa sezione, dedicata a mostrare come applicare i modelli in scenari di applicazione pratica soffermadosi su metodi e modalità di caricamento, addestramento e inferenza.\\
-L'obbietivo è misurare quanto il codice presente sulle model card di Hugging Face sia effettivamente simile all'utilizzo reale del modello in progetti open-source presenti sulla piattaforma Github. Il processo si basa sulla generazione automatica di pattern ricorrenti di codice sorgente Python, intesi come schemi e sequenze formate prevalentemente da funzioni che mostrano la pipeline di impiego di un modello: dal caricamento del modello stesso, alla preparazione dei dati, fino alle fasi di addestramento e inferenza con eventuali parametri specifici...\\
+L'obbietivo è misurare quanto il codice presente sulle model card di Hugging Face sia effettivamente simile all'utilizzo reale del modello in progetti open-source presenti sulla piattaforma Github. Il processo si basa sulla generazione automatica di pattern ricorrenti di codice sorgente Python, intesi come schemi e sequenze formate prevalentemente da funzioni che mostrano la pipeline di impiego di un modello: dal caricamento, alla preparazione dei dati, fino alle fasi di addestramento e inferenza con eventuali parametri specifici.\\
 ...\\
 Per raggiungere questo scopo è stata condotta una ricerca approfondita, tramite data-mining, degli script presenti nei repository GitHub che presentassero l'impiego di modelli di Hugging Face al fine di costruire un dataset strutturato da cui partire con l'analisi successiva...\\
 La ricerca di queste sequenze di codice è utile per comprendere come i modelli vengono generalmente implementati dagli sviluppatori, scoprendo potenzialmente tecniche specifiche d'utilizzo, best practise ed eventualti iperparametri che non sono direttamente mostrati nelle varie documentazioni.
 
 
-\section{Tecnologie e Motivazione}
+\section{Background e Motivazione}
 In questa sezione verrano mostrate le principali tecnologie e i mezzi ricorrenti alla base del processo di approccio:
 \begin{itemize}
-    \item \textit{PTMs} (\textit{P}re-\textit{T}rained \textit{M}odel\textit{s}), ovvero i modelli pre-addestrati presenti sulla piattaforma HF, oggetto dell'esperimento
-    \item \textit{Hugging Face Model card}, rappresenta l'intera sezione di descrizione delle caratteristiche di un particolare modello con annessi eventuali esempi di codice Python sull'utilizzo. È visionabile direttamente al link di un derminato PTM, ex. \textit{https://huggingface.co/sentencetransformers/all-MiniLM-L6-v2}.\\
+    \item \textbf{PTMs} (\textit{P}re-\textit{T}rained \textit{M}odel\textit{s}), ovvero i modelli pre-addestrati presenti sulla piattaforma HF, oggetto dell'esperimento
+    \item \textbf{Hugging Face Model card}, rappresenta l'intera sezione di descrizione delle caratteristiche di un particolare modello con annessi eventuali esempi di codice Python sull'utilizzo. È visionabile direttamente al link di un derminato PTM, ex. \textit{https://huggingface.co/sentencetransformers/all-MiniLM-L6-v2}.\\
     In particolare, le principali informazioni inserite nella card riguardano le licenze di sviluppo, task di utilizzo, riferimenti ai dataset di pre-training, limitazioni sui token di elaborazione, eventuali modalità di fine-tuning, inferenza ecc...
-    \item Data mining
-    \item gli LLM \textit{L}arge \textit{L}anguage \textit{M}odels sono modelli di linguaggio che rappresentano un'innovazione significativa nell'ambito del \(NLP\) (Natural Language Processing), sono costruiti su reti neurali profonde, in particolare sull'architettura \textit{Transformer} che comprende le sequenti componenti principali \cite{di2025use}:
+    \item \textbf{Data mining} 
+    \item \textbf{LLM} (\textit{L}arge \textit{L}anguage \textit{M}odels) sono modelli di linguaggio che rappresentano un'innovazione significativa nell'ambito del \(NLP\) (Natural Language Processing), sono costruiti su reti neurali profonde, in particolare sull'architettura \textit{Transformer} che comprende le sequenti componenti principali \cite{di2025use}:
 \begin{itemize}
-    \item \textit{Encoder} che elabora il testo in input generando rappresentazioni semantica. Nel dettaglio ogni parola viene convertita in token (porzioni parziali o totali della parola) e poi in un vettore (embedding) a cui si aggiunge un ulteriore vettore che ne indica la posizione all'interno della frase permettendo di mantenere l'ordine, successivamente vengono passati al primo sotto-modulo dell'encorder, \textit{Self-Attention Layer} che permette ad ogni parola di guardare tutte le altre per capire il contesto e poi la rete neurale \textit{Feed-Forward Network} trasforma la rappresentazione dell'attenzione in una forma più informativa ovvero catturando aspettiti sintattici più complessi e astratti.
+    \item \textbf{Encoder} elabora il testo in input generando rappresentazioni semantiche. Il processo avviene nei seguenti passi:
+    \begin{itemize}
+        \item \textit{Tokenizzazione}: ogni parola viene convertita in token
+        \item \textit{Embedding}: ogni token viene trasformato in un vettore numerico che rappresenta un insieme di indici nel dizionario del modello
+        \item \textit{Positional Encoding}: si aggiunge un vettore di posizione per mantere l'ordine delle parole poiché i Transformer non elaborano il testo in maniera sequenziale
+        \item \textit{Self-Attention Layer}: permette ad ogni parola di guardare tutte le altre per comprendere il contesto
+        \item \textit{Feed-Forward Network (FFN)}: trasforma la rappresentazione dell'attenzione in una forma più informativa, catturando aspetti sintattici più complessi e astratti
+        
+    \end{itemize}
     
-    \item \textit{Decoder} che partendendo da queste rappresentazioni genera il testo dell'output. Il funzionamento prevede il modulo \textit{Masked Self-Attention Layer} che impedisce al modello di "guardare" le parole future durante la generazione, garantendo che la predizione successiva del prossimo token si basi solo su quelli già generati. La scelta su quale generare avviene grazie al \textit{Encoder-Decoder Attention Layer} che collega l'output al contesto dell'input ovvero alle rappresentazioni semantiche prodotte dall'encorder, fornendo in output una sorta di "mappa di attivazione" ovvero per ogni parole (token) c'è un punteggio che indica quele sia la più sensata ad essere scelta. Infine queste informazioni vengono ancora raffite dalla stessa \textit{Feed-Forward Network} che le passa alla funzione softmax per calcolare quale parola sia la più popolare.
+    \item \textbf{Decoder}, partendendo dalle rappresentazioni dell'encoder genera il testo dell'output seguendo questi passaggi:
+    \begin{itemize}
+        \item \textit{Masked Self-Attention Layer}: impedisce al modello di "guardare" le parole future durante la generazione, garantendo che la predizione successiva del prossimo token si basi solo su quelli già generati
+        \textit{Encoder-Decoder Attention Layer}: collega il contesto dell’input (rappresentazione dell'encoder) con il testo in generazione, creando una sorta di mappa, che assegna ad ogni token (parola) di input un punteggio per determinare quale sia il più rilevante nella generazione del prossimo token
+        \textit{Feed-Forward Network}: raffina ulteriormente le informazioni e le passa ad una funzione \textit{softmax}, che calcola la probabilità di ogni possibile parola successiva, selezionando quella più alta.
+    \end{itemize}
 
-    \item \textit{Meccanisco dell'attenzione} sia che nell'encoder che nel decoder è presente questo sistema di calcolo dell'attenzione che consente all'LLM di pesare delle parole rispetto ad altre all'interno di una frase. Ogni vocabolo del linguaggio naturale viene visto su tre prospettive diverse Q,V,K \cite{vaswani2017attention}
+    \item \textbf{Meccanisco dell'attenzione} è il cuore del Transformer, presente sia nell'encoder che nel decoder, permette all'LLM di pesare l'importanza di una parola rispetto alle altre. Il calcolo dell'attenzione è espresso nella seguente equazione \cite{vaswani2017attention}:
+    \[
+        \text{Attenzione}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right) V
+    \]
+    Dove:
+    \begin{itemize}
+        \item \textbf{Q} (Query) rappresenta la parola che sta cercando informazioni
+        \item \textbf{K} (Key) è la rappresentazione delle parole che possono essere rilevanti
+        \item \textbf{V} (Value) contiene le informazioni effettive associate a ogni parola
+        \item dk
+    \end{itemize}
+    Q,K,V rappresentano in sostanza tre prospettive diversa di una parola, che vengono calcolate moltiplicando il vettore di embedding per la matrice dei pesi (ovvero i parametri del modello). Infine la softmax,  converte i pesi in probabilità, determinando l'importanza relativa di ciascun token.
 \end{itemize}
-Nella descrizione delle principali componenti si è parlato indistintamente tra parole e token, ma è fondamentale sottolineare che non sono equivalenti. Un token può essere:
+Nella descrizione delle principali componenti dell'architettura si è parlato indistintamente tra parole e token, ma è fondamentale sottolineare che non sono equivalenti. Un token può essere:
 \begin{itemize}
     \item una parola intera
     \item porzioni di una parola cioè frammenti come prefissi e suffissi 
     \item singoli caratteri per lingue come il cinese oppure per simboli speciali
     \item subword ovvero combinazioni di lettere che si trovano in più parole
 \end{itemize}
-Per trasformare le parole del linguaggio naturale in token si utilizzare un tokenizer ovvero una componente che attraverso un pre-processing del testo (rimuozione spazi e normalizzazione) 
-Gli LLM sono stati addestrati su un'enorme quantità di dati testuali provenienti da libri, articoli e pagine web acquisendo una forte conoscienza e trovando impiego in numerosi ambiti tra cui la generazione e completamento di codice, assistenza nella documentazione software e traduzioni, sintesi di testuali partendo sempre da un input testuale.\\
-Impartire al modello il compito da compiere non è banale per questo si parla di \textit{prompt engineering} come l'arte del formulare input che guidino l'LLM verso le risposte desiderate. Questo può avvenire secondo queste principali tecniche:
+Per trasformare le parole del linguaggio naturale in token ogni LLM utilizza un particolare \textbf{tokenizer} ovvero una componente che attraverso un pre-processing (rimuozione spazi e normalizzazione) del testo applica diverse tecniche di tokenizzazione, tra le principali:
+\begin{itemize}
+    \item \textit{Subword Tokenization}
+    \item \textit{Byte-level Tokenization}
+\end{itemize}
+
+Gli LLM sono stati addestrati su un'enorme quantità di dati testuali provenienti da libri, articoli e pagine web acquisendo una forte conoscienza e trovando impiego in numerosi ambiti tra cui la generazione e completamento di codice, assistenza nella documentazione software e traduzioni, sintesi di testuali \cite{di2025use} partendo sempre da un input testuale.\\
+Impartire al modello il compito da compiere non è banale per questo si parla di \textit{prompt engineering} come l'arte del formulare input che guidino l'LLM verso le risposte desiderate. Questo può avvenire secondo queste principali tecniche \cite{di2025use}:
 \begin{itemize}
     \item \textit{Chain-of-Thought (CoT)} ovvero suddivide problemi complessi in passaggi più semplici per favorire nei confronti dell'LLM un ragionamento sequenziale e coerente.
     \item \textit{Few-shot prompting}: inserire nell'input pochi esempi per orientarlo nello svolgimento di un compito, riducendo la necessità di un addestramento approfondito (fine-tuning)
     \item \textit{Zero-shot prompting} al contrario del precedente, affida al modello un compito senza fornire esempi, sfruttandone la sua capacità di generalizzare.
 \end{itemize}
-Nel prompt, per ottenere risposte accurate e contestualizzate in specifici ambiti, solitamente si assegna un ruolo 
-
-Un'importante limitazione di questi modelli di linguaggio sono le \textit{allucinazioni} ovvero un comportanmento del LLM che tende a generare risposte plausibili ma sbagliate o prive di fondamento logico. Ciò può essere dovuto a comprensione errata del contesto oppure alla difficoltà nell’interpretare input ambigui o complessi. Nel contesto di questo esperimento un esempio di allucizione si potrebbe verificare quando l'LLM riceve in input del codice Python e deve estrapolarne pattern d'uso ricorrenti ma genera enera funzioni che non hanno alcun collegamento con il codice originale. Questo può essere dovuto all’incapacità del modello di generalizzare correttamente il compito assegnato. Per mitigare questo problema, si è specificato nel prompt cosa fare quando il modello non è in grado di rispondere. Ad esempio, si può esplicitamente indicare che, in caso di incertezza, bisogna restituire una stringa vuota in modo che la successiva analisi dell'output sia più semplice.\\
-
-- parametri (temperatura, top p)
-
-
+Nel prompt, per ottenere risposte accurate e contestualizzate in specifici ambiti, solitamente si assegna un ruolo al modello che deve interpretare. Questo aiuta l'LLM a rispondere in maniera più pertinente al contesto richiesto.\\
+Un'importante limitazione di questi modelli di linguaggio sono le \textit{allucinazioni} ovvero un comportanmento del LLM che tende a generare risposte plausibili ma sbagliate o prive di fondamento logico \cite{di2025use}. Ciò può essere dovuto a comprensione errata del contesto oppure alla difficoltà nell’interpretare input ambigui o complessi. Nel contesto di questo esperimento un esempio di allucizione si potrebbe verificare quando l'LLM riceve in input del codice Python e deve estrapolarne pattern d'uso ricorrenti ma genera enera funzioni che non hanno alcun collegamento con il codice originale. Questo può essere dovuto all’incapacità del modello di generalizzare correttamente il compito assegnato. Per mitigare questo problema, si è specificato nel prompt cosa fare quando il modello non è in grado di rispondere. Ad esempio, si può esplicitamente indicare che, in caso di incertezza, bisogna restituire una stringa vuota in modo che la successiva analisi dell'output sia più semplice.\\
+Infine i parametri...
 
 \end{itemize}
 
+\subsection{Motivazione}
 Oltre alla misurazione di quanto la generazione automatica di codice che rappresenti l'uso del modello sia simile a quella ufficiale presente sulla piattaforma Huggig Face, i risultati condotti dall'esperimento possono, a mio avviso, essere una fonte di arricchimento soprattutto nelle model card in cui non ci sono esempi di codice.
 
-ESEMPIO DI CARD senza codice
+ESEMPIO DI CARD senza codice (motivazione)
+
+\subsection{Produzione dataset file Github}
+
+
 
 \section{Stato dell'arte}
 - paper teams (come mi differenzio)
@@ -74,8 +129,6 @@ invio al llm
 - riassunto del codice con un llm e un altro llm analizza il riassunto
 - ricerca pattern chunk dopo chunk
 
-\section{Produzione dataset file Github}
-
 
 
 \section{Approccio}
@@ -83,19 +136,22 @@ invio al llm
 \subsection{Filtro modelli popolari}
 (AGGIUNGERE IMMAGINE DISTRIBUZIONE E METRICHE)\\
 \\
-Il database prodotto nella parte di tirocinio contiene per 7,325 PTM un totale di 453,260 file sorgenti Python. La distribuzione dei dati è fortemente asimmetrica presentando un'elevata concentrazione di modelli con un numero molto basso di codici mentre solo un ristretto numero di PTM è utilizzato in una quantità significatamente maggiore di file.\\
+Il database prodotto nella parte di tirocinio contiene per 7,325 PTM un totale di 453,260 file sorgenti Python. La distribuzione dei dati è fortemente asimmetrica, presentando un'elevata concentrazione di modelli con un numero molto basso di codici mentre solo un ristretto numero di PTM è utilizzato in una quantità significatamente maggiore di file.\\
 In particolare, la distribuzione segue un andamento tipico delle distribuzioni \textit{long tail} che si manifesta con una forte asimmetria positiva (right-skewed distribution) evidenziando che la maggior parte dei modelli è utilizzata in pochissimi file mentre modelli altamente popolari sono in una frequenza molto minore.\\
-Infatti dalle informazioni statiche la mediana è molto inferiore alla media e la deviazione standard elevata conferma l'alta variabilità tra i modelli. Inoltre, la notevole skewness evidenzia che la distribuzione è sbilanciata a destra, con alcuni modelli molto più utilizzati rispetto alla maggioranza ed infine La curtosi indica la presenza di numerosi outlier, ovvero modelli con un utilizzo estremamente superiore rispetto alla norma.\\
-Per evitare possibili distorsioni negli esperimenti successivi dell'approccio, si è deciso quindi di selezionare un sottoinsieme di PTM aventi un numero di file arbitrariamente maggiore di 100 formato da 1,064 modelli per un totale complessivo di 393,484 script.
+Infatti dalle informazioni statiche la mediana è molto inferiore alla media e la deviazione standard elevata conferma l'alta variabilità tra i modelli. Inoltre, la notevole skewness evidenzia che la distribuzione è sbilanciata a destra, con alcuni modelli molto più utilizzati rispetto alla maggioranza. Infine La curtosi indica la presenza di numerosi outlier, ovvero modelli con un utilizzo estremamente superiore rispetto alla norma.\\
+Per evitare possibili distorsioni negli esperimenti successivi dell'approccio, si è deciso quindi di selezionare un sottoinsieme di PTM aventi un numero di file arbitrariamente maggiore di 100 formato da 1,064 modelli per un totale complessivo di 393,484 script.\\
+Oltre a ridurre le distorsioni dovute alla scarsità di dati, la selezione si è basata anche sul cercare di includere i modelli più popolari e ampiamente utilizzati sulla piattaforma, al fine di concentrarsi sui modelli effettivamente reliventi per la community.\\
+Salvataggio
 
 \subsection{Filtro dei codici sorgenti per lunghezza}
-Per migliorare l'efficienza della successiva ricerca delle porzioni più rilevanti dei file si è implementato un processo di selezione degli script basato sulla lunghezza degli stessi. L'idea di base è che alcuni codici troppo brevi potrebbero non contenere informazioni significative sull'utilizzo di un particolare modello e allo stesso modo codici troppo lunghi potrebbero includere porzioni non pertinenti come ad esempio descrizioni e lunghi commenti.\\
-Il processo di filtraggio si basa nel considerare solo gli script che hanno una lunghezza in termini di linee di codice comprese nell'intervallo interquantile (IQR) utilizzando la mediana come valore centrale. In particolare, l'IQR è una misura statistica della dispersione dei dati così definita:
+Per migliorare l'efficienza della successiva ricerca delle porzioni più rilevanti dei file si è implementato un processo di selezione degli script, precedentemente filtrati, basato sulla lunghezza degli stessi.\\
+L'idea di base è che alcuni codici troppo brevi potrebbero non contenere informazioni significative sull'utilizzo di un particolare modello e allo stesso modo codici troppo lunghi potrebbero includere porzioni non pertinenti come ad esempio descrizioni e lunghi commenti.\\
+Il processo di filtraggio si basa nel considerare solo gli script che hanno una lunghezza in termini di linee di codice comprese nell'intervallo interquantile (IQR), utilizzando la mediana come valore centrale. In particolare, l'IQR è una misura statistica della dispersione dei dati così definita:
 \[
 IQR = Q3 - Q1
 \]
-dove Q1 (primo quartile) indica il valore sotto il quale si trova il 25\% dei file più corti mentre Q3 (terzo quartile) il valore sotto il quale si trova il 75\% dei file, quindi il risultato rappresenta l'ampiezza della fascia centrale della distribuzione pari al 50\% dei dati.\\
-Nella pratica la mediana e l'IQR sono impiegati nel calcolo di questo intervallo:
+dove Q1 (primo quartile) indica il valore sotto il quale si trova il 25\% dei file più corti, mentre Q3 (terzo quartile) il valore sotto il quale si trova il 75\% dei file. Quindi, il risultato rappresenta l'ampiezza della fascia centrale della distribuzione cioè pari al 50\% dei dati.\\
+Nella pratica la mediana e l'IQR vengono così impiegati nel calcolo nell'intervallo di selezione:
 \[
 min\_length =max(mediana-0.25*IQR,1)
 \]
@@ -103,73 +159,120 @@ min\_length =max(mediana-0.25*IQR,1)
 max\_length =mediana+0.25*IQR
 \]
 dove il fatore 0.25 permette di restringere l'intervallo intorno alla mediana senza essere troppo rigido.\\
-Quindi, questo range permette di selezione i file in base alla loro lunghezza attraverso una misura più robusta della media che permette di ecludere la presenza di eventuali outlier concentrandosi su insieme più omogeneo.\\
-Per ottimizzare il tempo di elaborazione dei vari calcoli, il processo viene eseguito in parallelo utilizzando il multithreading perché si tratta maggiormente di operazioni di lettura e scrittura du disco (I/O bound), in cui ogni thread lavora su un sottoinsieme di file riducendo l'attesa rispetto ad un'elaborazione sequenziale. Inoltre, l'uso di un \textit{ThreadPoolExecutor} garantisce una gestione automatica delle risorse senza preoccuparsi di eventuali race condition sui file e bilanciando il carico di lavoro tra i thread attivi.
+Di conseguenza, questo range permette di selezione i file in base alla loro lunghezza attraverso una misura più robusta della media, concentrandosi su insieme più omogeneoe ed escludendo la presenza di eventuali outlier.\\
+Per ottimizzare il tempo di elaborazione dei vari calcoli, il processo viene eseguito in parallelo utilizzando il multithreading perché si tratta prevalentemente di operazioni di lettura e scrittura su disco (I/O bound) in quanto calcolo matematico è piuttosto semplice. Nel dettaglio ogni thread lavora su un sottoinsieme di file riducendo l'attesa rispetto ad un'elaborazione sequenziale. Inoltre, l'uso di un \textit{ThreadPoolExecutor}\cite{python-concurrent-futures} garantisce una gestione automatica delle risorse, bilanciando il carico di lavoro tra i thread attivi.\\
+Salvataggio
 
 \subsection{Ricerca dei migliori \textit{code snippet}}
-L'LLM preso in considerazione per questo esperimento ha una finestra di contesto molto limitata, ovvero non riesce a gestire per ogni chiamata più di un certo numero di token in input e in output. Dove per chiamata si intende complessivamente la richiesta (prompt) comprensiva del codice da analizzare più la riposta.\\
-L'ipotecico approccio di far valutare al modello direttamente interi script Python, senza un pre-processing, potrebbe essere molto restrittivo in termini di possibili pattern di codice da scoprire nonché inefficiente perché gli stessi script potrebbero non avere un interessante senso semantico; limitandosi per esempio a menzionare il modello in esame con commenti e descrizioni senza poi impiegarlo realmente.\\
-Quindi, si è deciso di analizzare in maniera automatica ogni singolo file filtrato dalla sezione precedente con l'obiettivo di estrapolarne una porzione che fosse la più rappresentativa e rilevante in termini di utilizzo del modello, provando cioè a non considerare per esempio sezioni di debugging o funzioni di utility. Il processo di estrazione è basato sulla ricerca di parole chiavi legate fortemente all'addestramento, tokenizzazione e inferenza standard dei PTM presenti su HF. In particolare, l'implementazione è suddivisa in 5 fasi:\\
+L'LLM preso in considerazione per questo esperimento ha una finestra di contesto molto limitata, ovvero non riesce a gestire per ogni chiamata più di un certo numero di token in input e in output.\\
+L'ipotecico approccio di far valutare al modello direttamente interi script Python, senza un pre-processing, potrebbe essere molto restrittivo in termini di possibili pattern di codice da scoprire, nonché inefficiente perché gli stessi script potrebbero non avere un interessante senso semantico. Per esempio, alcuni file, si potrebbere limitare soltanto a menzionare il modello in esame con commenti e descrizioni senza poi impiegarlo realmente.\\
+Per affrontare queste problematiche, si è deciso di analizzare in maniera automatica ogni singolo file filtrato dalla sezione precedente, con l'obiettivo di estrapolarne una porzione che fosse la più rappresentativa e rilevante possibile in termini di utilizzo del modello, provando a non considerare per esempio sezioni di debugging o funzioni di utility non significative. Il processo di estrazione è basato sulla ricerca di parole chiavi legate fortemente all'addestramento, tokenizzazione e inferenza standard dei PTM disponibili su HF. In particolare, l'implementazione è suddivisa in 5 fasi:\\
 \begin{itemize}
-    \item \textbf{Analisi della struttura del codice}: per ogni file Python risultante dal calcolo della mediana viene utilizzo un parser per l'Abstract Syntax Tree (AST), ovvero una rappresentazione strutturata sintattica del codice sorgente, che permettere di iterare sui nodi identificando importazioni di librerie e definizioni di funzioni (incluso il corpo) che facciano match con almeno una delle keyword precedentemente definite. La corrispondenza avviene in una determinata linea di codice, quindi per avere un contesto sufficientemente comprensile sono state aggiunte allo snippet due righe prima e dopo.\\
-    Tuttavia, può accadere che il parser sull'AST incontri errori di sintassi che impediscono la succesiva analisi del codice, come ad esempio parentesi mancanti, indentazioni errate, stringhe non chiuse correttamente ecc. In questi casi l'errore viene solo mostrato a schermo e il file scartato per il processo.
+    \item \textbf{Analisi della struttura del codice}: per ogni file Python risultante dal calcolo della mediana viene utilizzo un parser per l'Abstract Syntax Tree (AST), ovvero una rappresentazione sintattica strutturata sintattica del codice sorgente. Ciò permettere di iterare sui nodi dell'albero per identificare importazioni di librerie e definizioni di funzioni (incluso il loro corpo) che contengono (match) almeno una delle keyword precedentemente definite. \\
+    La ricerca della corrispondenza viene effettuata a livello di linea: per fornire un contesto più ampio e facilitare la comprensione dello snippet estratto, vengono aggiunte due (arbitrariamente) righe di contesto sia prima che dopo la porzione individuata.\\
+    Tuttavia, l’analisi AST potrebbe fallire può accadere in presenza errori sintattici nel codice sorgente come parentesi mancanti, indentazioni errate, stringhe non chiuse correttamente. In questi casi l'errore viene solo segnalato a schermo e il file scartato dal processo successivo.
     
-    \item \textbf{Raggrupamento delle informazioni} in seguito all'individuazione delle diverse porzioni pertinenti è necessario unificare eventuali frammenti vicini tra loro (che condividono alcune linee di codice) per evitare ripetizioni rindondanti. 
+    \item \textbf{Raggrupamento delle informazioni}: dopo l'individuazione delle diverse porzioni pertinenti può accadere che più frammenti siano vicini tra loro e condividano alcune righe di codice. Per evitare ripetizioni ridondanti, questi frammenti vengono unificati mediante la fusione degli intervalli di righe sovrapposti, garantendo che snippet contigui non vengano considerati separatamente. 
 
-    \item \textbf{Ricerca del miglior snippet} l'analisi sintattica con il raggruppamento restituisce per ogni file un insieme di n snippet che contengono ognuno almeno un match con una delle stringhe di keyword, ma per scegliere il migliore tra i candidati è necessario considerare il significato semantico del codice.
-    Questo è reso possibile dall'algoritmo K-means implementato con la libreria \textit{scikit-learn} che lavora con una rappresentanzione numerica delle informazioni. Essendo gli snippet espressi sotto forma di stringhe si è adottato un modello di embeddings, reso disponibile proprio da HF con la libreria \textit{sentence\_transformers}, il cui compito è proprio di fare l'encoding della stringa fasi di  tokenizzazione delle parole, calcoli con l'architettura \textit{Transformer} e produzione di un vettore in una dimensione di precisamente 384 componenti.\\
-    Quindi, gli embeddings vengono passati al K-means che li assegna in un numero cluster (scelto empiricamente dal minino tra un valore euristico fisso a 3 e la lunghezza degli snippet) il cui centroide (vettore medio) è più vicino (calcolando la distanza euclidea) ad essi. Inizialmente i centroidi vengono inizializzati in modo che siano più distanziati possibile uno dall'altro e poi iteretivamente man mano che si aggiungono embedding ai cluster si ricalcolano i centroidi finchè non si stabilizzano.\\
-    Infine, si itera nuovamente sui cluster scegliendo tra gli elementi presenti quello che si trova più vicino al centroide di riferimento ovvero lo snippet che riassume al meglio le caratteristiche del gruppo.
+    \item \textbf{Ricerca del miglior snippet} l'analisi sintattica e il successivo raggruppamento restituiscono, per ogni file, un insieme di snippet contenenti almeno una corrispondenza con le keyword definite. Tuttavia, per scegliere il migliore tra i candidati è necessario considerare anche il significato semantico del codice.\\
+    Per raggiungere questo obiettivo, si è utilizzato l'algoritmo \textbf{K-means} implementato con la libreria \textit{scikit-learn}\cite{scikit-learn} che opera su una rappresentanzione numerica dei. Poiché gli snippet sono inizialmente sotto forma di stringhe, è stato adottato un modello di embeddings (\textbf{'all-MiniLM-L6-v2'}) fornito da Hugging Face tramite la libreria \textit{sentence\_transformers}. Questo modello, basato sull’architettura Transformer, converte ogni snippet in un vettore numerico di 384 dimensioni attraverso una pipeline di tokenizzazione, calcolo dell’attenzione e generazione dell’embedding. Nonostante i modelli della libreria \textit{sentence\_transformers} siano principalmente progettati per il linguaggio naturale riescono comunque a catturare molte informazioni sintattiche e semantiche nei frammenti di codice soprattutto se l'obbiettivo è selezionare gli snippet rappresentativi e non necessariamente eseguire un'analisi profonda delle operazioni a basso livello di codice.\\
+    Si è deciso di adottare questo tipo di embedder anche per un trade-off tra prestazioni e leggerezza perché utilizzato ad esempio \textit{CodeBERT} i tempi di inferenza e utilizzo della memoria per centinaia di migliaia di file sarebbero stati sicuramente più alti. 
+    Gli embeddings ottenuti vengono passati al K-means che ha il compito di assegnarli in $k$ cluster. Il valore di $k$ viene scelto empiricamente come il minimo tra un valore fisso pari a 3 e la lunghezza della lista degli snippet, in modo da adattarsi dinamicamente al numero di candidati disponibili.\\
+    L'algortimo K-means funziona seguendo i seguenti passaggi:
+    \begin{itemize}
+        \item \textit{Inizializzazione dei centroidi}: i centroidi, ovvero i punti che rappresentano il centro di ciascun cluster, vengono inizializzati in modo da essere il più distanti possibile tra loro partendo dagli embegginds di input.
+        \item \textit{Assegnazione dei punti ai cluster}: ogni embedding viene assegnato al cluster il cui centroide è più vicino in termini di distanza euclidea. Formalmente la distanza tra un embedding $x$ e un centroide $c$ è calcolata:
+        \[
+        d(x, c) = \sqrt{\sum_{i=1}^{384} (x_i - c_i)^2}
+        \]
+        \item \textit{Ricalcolo dei centroidi}: una volta assegnati tutti i punti, per ogni cluster si calcola un nuovo centroide come media aritmetica (punto o vettore medio) degli embeddings appartenenti al cluster. Se $C_{j}$ è l'insieme dei punti del cluster $j$ allora il nuovo cluster $c_{j}$ è definito:
+        \[
+        c_j = \frac{1}{|C_j|} \sum_{x \in C_j} x
+        \]
+        \item \textit{Iterazione fino alla convergenza}: I passaggi di assegnazione e ricalcolo dei centroidi vengono ripetuti fino a quando i centroidi non si stabilizzano ovvero non cambiano significativamente tra due iterazioni consecutive, segnando che l'algoritmo sta convergendo
+    \end{itemize}
+    Una volta raggiunta la convergenza, per ogni cluster si seleziona lo snippet il cui embedding è più vicino al rispettivo centroide. Tale snippet viene considerato il più rappresentativo del gruppo, poiché riassume al meglio le caratteristiche semantiche condivise dagli altri elementi del cluster.
+    
+    \item \textbf{Elaborazione parallela} Per ottimizzare i tempi di esecuzione, in presenza di un elevato numero di file da elaborare, anche questa sezione, il processo è stato parallelizzato tramite l’utilizzo del multithreading. Ciascun thread si occupa di elaborare in modo indipendente un file, estraendo gli snippet, calcolando gli embeddings e applicando l’algoritmo di clustering. Questo approccio consente di ridurre i tempi complessividi esecuzione.
 
-    \item \textbf{Elaborazione parallela} anche in questa sezione per gestire un gran numero di file, il processo viene eseguito in parallelo sfruttando il multithreading per un'elaborazione più veloce.
-
-    \item \textbf{Salvataggio informazioni}
-
-
+    \item \textbf{Salvataggio informazioni} Gli snippet selezionati vengono infine salvati in un file JSON per facilitarne la consultazione e l’utilizzo nelle successive fasi di analisi, secondo la seguente struttura:\\\\\\
+    \begin{lstlisting}[language=json, caption={Esempio di struttura JSON dei migliori snippet selezionati}, label={lst:json-example}]
+{
+  "bert-base-uncased": {
+    "path/to/file1.py": [
+      "import transformers\n\nmodel = AutoModel.from_pretrained('bert-base-uncased')",
+      "tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')\ninputs = tokenizer('Hello world', return_tensors='pt')"
+    ],
+    "path/to/file2.py": [
+      "pipeline = transformers.pipeline('sentiment-analysis')\nresult = pipeline('I love coding!')"
+    ]
+  },
+  "roberta-base": {
+    "path/to/file3.py": [
+      "import transformers\nmodel = AutoModel.from_pretrained('roberta-base')"
+    ]
+  }
+}
+\end{lstlisting}
+Questa pipeline consente di selezionare automaticamente, per ciascun file, le porzioni di codice più rappresentative in termini di utilizzo dei modelli di Hugging Face, riducendo la quantità di codice irrilevante da fornire all'LLM.
 
 
 \subsection{Utilizzo dell'LLM}
+Nel contesto di questo esperimento, è stato sfruttuano un particolare LLM opensource per analizzare gli snippet di codice Python estratti precedentemente, al fine di indiduare schemi comuni nell'utilizzo dei PTM, tramite le principali librerie della piattaforma di Hugging Face.
+L'obiettivo è di isolare pattern significativi senza dover eseguire un'analisi manuale per ciascun modello esaminato, riducendo tempi e sforzi operativi.
 
-\subsubsection{Flusso di lavoro}
-L'idea di base è fornire, per ogni modello in esame, il maggior numero possibile di snippet, ccercando di massimizzare l’utilizzo dei token di input disponibili per l’LLM. Per garantire coerenza e confrontabilità tra le varie chiamate, viene utilizzato un \textit{prompt fisso} per tutti i modelli. Il prompt ha come unico scopo di istruire il modello a individuare eclusivamente pattern di codice, come importazioni comuni, definizioni di funzione e strutture tipiche di utilizzo dei modelli PTM.
+\subsubsection{Flusso operativo}
+L'idea di base è fornire, per ogni modello in esame, il maggior numero possibile di snippet, ccercando di massimizzare l’utilizzo dei token di input disponibili per l’LLM. Per garantire coerenza e confrontabilità tra le varie chiamate, viene utilizzato un \textit{prompt} fisso per tutti i modelli. \\
+Il prompt ha come unico scopo di istruire il modello a individuare eclusivamente pattern di codice, come:
+\begin{itemize}
+    \item importazioni comuni
+    \item definizioni di funzione
+    \item strutture tipiche di utilizzo dei modelli PTM
+\end{itemize}
+
 (foto prompt con annessa spiegazione)
 
-Per la scelta delle porzioni di codice da inviare al modello, viene effettuato un primo filtro: tramite espressioni regolari vengono selezionati solo gli snippet contenenti almeno il nome del modello e la keyword "def". Questo controllo permette agli snippet di essere pertinenti con il modello in esame e di includere almeno una definizione di funzione rendendolo rilevante per l'identificazione di pattern funzionali.\\
-L'input per l'LLM viene costruito in maniera incrementale, ovvero si aggiunge uno snippet alla stringa da inviare fin quando non si supera il limite di token previsto, calcolando con il \textit{tokenizer} le varie stringhe:
+Per la scelta delle porzioni di codice da inviare al modello, viene effettuato un primo filtro: tramite espressioni regolari vengono selezionati solo gli snippet contenenti almeno il nome del modello e la keyword "def". Questo controllo garantische che gli snippet siano pertinenti con il modello in esame e che venga inclusa almeno una definizione di funzione, rendendo il codice rilevante per l'identificazione di pattern funzionali.\\
+Una volta selezionati gli snippet l'input per l'LLM viene costruito in maniera incrementale:
+\begin{itemize}
+    \item gli snippet vengono aggiunti uno alla volta alla stringa da inviare
+    \item dopo ogni aggiunta, si calcola il numero di token complessivi utilizzando il tokenizer del modello
+    \item il processo continua finché non si raggiunge il limite massimo di token previsto
+\end{itemize}
+Il numero massimo di token disponibili per l’input è calcolato come segue:
 \[
 allowed\_input\_tokens = max\_total\_tokens - system\_tokens - reserved\_output\_tokens
 \]
 dove
 \begin{itemize}
-    \item \textit{allowed\_input\_tokens} indica il numero di token disponibili, che aumenta con il crescere degli snippet selezionati
-    \item \textit{max\_total\_tokens} limite imposto dal modello ovvero 4096
-    \item \textit{system\_tokens} numero token riservati al prompt di sistema, considerabile costante trascurando il nome del modello
-    \item \textit{reserved\_output\_tokens} termine costante pari a 400
+    \item \textit{allowed\_input\_tokens}: numero di token disponibili, che aumenta con il crescere degli snippet selezionati
+    \item \textit{max\_total\_tokens}: limite imposto dal modello pari a 4096 token
+    \item \textit{system\_tokens}: numero token occupati dal prompt di sistema, considerabile costante a eccezione della variazione dovuta al nome del modello
+    \item \textit{reserved\_output\_tokens} termine costante pari a 400,  riservati per l’output dell’LLM
 \end{itemize}
-Per ogni risposta ricevuta dall'LLM, l'algoritmo implementa una semplice logica di validazione che consiste nel verificare se l'output contiene il nome del modello (sempre con l'intento di ricercare pattern pertinenti) e almeno le keyword "import" e "def" per assicurarsi che il risultato contenga sezioni di codice Python; se l'esito è negativo si effettuano 2 nuovi tentativi con lo stesso input (perché) ripentendo il controllo. Nel caso in cui anche dopo 3 tentivi complessivi il risultato non è pertinente si considera l'ultimo prodotto  
-
-
-L’output valido viene infine salvato in un file JSON strutturato, contenente:  
+Questo approccio garantisce l'utilizzo ottimale della finestra di contesto del modello, permettendo di massimizzare le informazioni fornite rispettando i limiti imposti.\\
+Inoltre durante la chiamata all'LLM viene impostata una bassa temperatura, pari a 0.2 per cercare ottenere risposte più accurate, coerenti e meno soggette a variazioni casuali. L'obbietivo è l’individuazione precisa di pattern di codice e non una generazione creativa, quindi inserendo un valore basso si riduce la variabilità tra risposte e si minimizza il rischio di ottenere output fuorvianti (allucinazioni).\\
+Per ogni risposta ricevuta dall'LLM, l'algoritmo implementa una semplice logica di validazione per verificarne la pertinenza e la qualità che consiste nel verificare se l'output contiene il nome del modello per confermare che il modello abbia effettivamente analizzato il contesto richiesto e almeno l'inclusione delle keyword "import" e "def" per assicurarsi che il risultato contenga sezioni di codice Python.\\
+Se l'output non soddisfa uno o entrambi questi criteri, il sistema effettua automaticamente fino a due nuovi tentativi con lo stesso input, ripetendo la validazione dopo ogni risposta. Ripetere la chiamata permette di provare a moderare la variabilità nelle risposte, aumentando la probabilità di ottenere un output valido e pertinente.\\ 
+Nel caso in cui anche dopo tre tentativi complessivi la risposta non risulti conforme ai criteri stabiliti, viene comunque considerato valido l'ultimo output generato per evitare cicli infiniti e per avere almeno del codice da poter valutare nel fase di testing.\\
+Infine, L’output viene salvato in un file JSON strutturato, contenente:  
 \begin{itemize}
-    \item Il prompt utilizzato.
-    \item L'input inviato cioè gli snippet scelti randomicamente.
-    \item La risposta generata dall’LLM.
-    \item Il numero totale di token utilizzati e i tentativi effettuati.
+    \item Il prompt utilizzato
+    \item L'input inviato cioè gli snippet scelti randomicamente
+    \item La risposta generata dall’LLM
+    \item Il numero totale di token utilizzati
+    \item Tentativi effettuati
 \end{itemize}
 
 \subsubsection{Esempio di card generata}
 
 
-    
+
 \end{itemize}
 
 \section{Validazione e risultati}
 
-
-
 \subsection{Scelta LLM e modalità}
-Nel contesto di questo esperimento, è stato sfruttuano un particolare LLM opensource per analizzare gli snippet di codice Python estratti precedentemente, al fine di indiduare schemi comuni nell'utilizzo dei PTM, tramite le principali librerie della piattaforma di Hugging Face.
-L'obiettivo è di isolare pattern significativi senza dover eseguire un'analisi manuale per ciascun modello esaminato, riducendo tempi e sforzi operativi.\\
 L'LLM adoperato per l'intero processo è \textbf{meta-llama/Llama-3.2-3B-Instruct}, sviluppato appunto da meta e appartenente alla collezione \textit{Llama 3.2}. Questa versione è progettata per essere utilizzata in compiti di tipo "instruct" (ovvero guidata da prompt specifici) e supporta l’elaborazione di un massimo di 4.096 token per ogni chiamata, suddivisi tra input e output.  
 Per accedere al modello, è stato utilizzato il servizio \textit{Hugging Face Inference API} un sistema consente di inviare richieste autenticate tramite token personale e ottenere risposte direttamente dai modelli open-source disponibili .\\
 Questo approccio offre diversi vantaggi:
@@ -218,24 +321,84 @@ Dopo aver raccolto le card ufficiali, si è proceduti nel valutare quanto fosser
     \end{itemize}
     Nel complesso potrebbe aiutare a catturare aspetti che altre metriche non riescono, ma deve essere considerata come parte di un multi-approccio e non come una soluzione unica ed ideale.
     
-    \item CodeBLEU \cite{ren2020codebleumethodautomaticevaluation} è una metrica progettata, invece, per valutare la qualità di un codice generato candidato rispetto a un riferimento
-    \item cosine similarity con Embedding
-\end{itemize}
+    \item \textbf{CodeBLEU} \cite{ren2020codebleumethodautomaticevaluation} è una metrica specificatamente progettata per valutare la qualità di un codice generato candidato rispetto a un riferimento e rappresenta un'estensione della metrica BLEU (Bilingual Evaluation Understudy) \cite{10.3115/1073083.1073135} ma adattata per catturare aspetti sintattici, semantici e strutturali del codice sorgente.\\
+    CodeBLEU combina nel suo punteggio quattro metriche differenti:
+    \begin{itemize}
+        \item \textit{n-gram match (BLEU)} che si concentra eslusivamente sulle corrispondenze lessicali, confrontando sequenze di token (n-grammi) tra il codice generato e quello di riferimento. La formula è la seguente:
+        \[
+            \text{BLEU} = \text{BP} \cdot \exp \left( \sum_{n=1}^{N} w_n \log p_n \right)
+        \]
+        dove:
+        \begin{itemize}
+            \item $p_n$ è la precisione degli \textit{n-grammi} di ordine $n$, ovvero la proporzione di n-grammi del candidato che appaiono nella referenza.
+            \item $w_n$ sono i pesi assegnati a ciascun n-grammo (solitamente uniformi)
+            \item \textbf{BP (brevity penalty)} è il fattore di penalità che riduce il punteggio quando la lunghezza del codice candidato è significativamente inferiore a quella del referente
+        \end{itemize}
+        Questa metrica è sensibile all'ordine dei token ma non considera la differenza semantica, quindi potrebbe avere un valore alto se i due codici con gli stessi token hanno un ordine diverso che evidenzia un comportamento diverso.
 
+        \item \textit{Weighted n-gram match} simile al funzionamento dell'n-gram match ma assegnando pesi diversi ai token in base al loro senso semantico. Ogni token viene pesato tramite un dizionario (che dipende dal linguaggio dei codici da confrontare) dando importanza a parole chiavi come, in questo contesto, "def", "return", "for"...
+        Al contrario le differenze tra i nomi delle variabili e spaziature nel codice vengono valorizzate meno rispetto alle strutture di controllo.
+
+        \item \textit{Syntax Match con AST} per valutare la similarità strutturale confrontando gli Abstract Syntax Tree dei due codici. Come menzionato nella sezione 5.3, l'AST permette di costruire una rappresentazione ad albero della struttura sintattica del codice dove nei nodi sono presenti i costrutti sintattici propri del linguaggio mentre gli archi le relazione tra essi.\\
+        La similarità tra i due alberi viene misurata principalmente con due metodi:
+        \begin{itemize}
+            \item Tree Edit Distance (TED), ovvero calcolare il numero minimo di operazioni per trasformare un albero (candidato) nell’altro
+            \item Difflib Sequence Matcher, ovvero confrontare la rappresentazione serializzata dell'albero tramite la libreria \textit{difflib}, dove per serializzata si intende una sequenza lineare di stringhe composta da caratteri e token che descrivono un particolare costrutto. Ad esempio, per una funzione la sequenza descrive i parametri di input, il corpo e l'output.
+        \end{itemize}
+        In entrambi i metodi il risultato viene normalizzato tra 0 e 1. Questa metrica è fondamentale perché due codici posso avere le stesse strutture logiche e quindi stesso comportamento ma sintassi differente.
+
+        \item \textit{Data flow match} confronta i flussi di dati tra variabili e funzioni cioè dove vengono definite, usate e passate tra i vari blocchi di codice. Per ogni snippet viene costruito un grafo di flusso e si confrontano le connessioni tra variabili ed operazioni riconoscendo codici che fanno la stessa cosa ma sono scritte in modo diverso.
+        
+    \end{itemize}
+    Considerando le quattro metriche appena citate, il calcolo di CodeBLEU è descritto dalla media pesata:
+    \[
+        \text{CodeBLEU} = \frac{\alpha \cdot \text{n-gram match} \;+\; \beta \cdot \text{weighted n-gram match} \;+\; \gamma \cdot \text{syntax match} \;+\; \delta \cdot \text{data flow match}}{4}
+    \]
+    Dove:\\
+    $\alpha$, $\beta$, $\gamma$, $\delta$ sono i pesi assegnati a ciascuna componente della metrica. In assenza di preferenze specifiche, questi pesi sono spesso uguali ovvero impostati a 1.\\
+    
+    \item Cosine similarity con Embedding: misura semanticamente la somiglianza tra due testi trasformandoli in vettori tramite modelli di embedding. Il calcolo tra due vettori $\mathbf{A}$ e $\mathbf{B}$ è definita come:
+    \[
+        \cos(\theta) = \frac{\mathbf{A} \cdot \mathbf{B}}{\|\mathbf{A}\| \cdot \|\mathbf{B}\|}
+    \]
+    dove:
+    \begin{itemize}
+        \item $\mathbf{A} \cdot \mathbf{B}$ è il prodotto scalare tra i due vettori.
+        \item $\|\mathbf{A}\|$ e $\|\mathbf{B}\|$ sono le norme dei due vettori
+    \end{itemize}
+    Come modello di embedding viene utilizzato \textit{CodeBERT} che calcola eseguendo un mean pooling sugli hidden states dell’ultimo layer del modello
+\end{itemize}
+Il processo di calcolo delle metriche menzionate prevede di iterare sui modelli che ovviamente hanno una corrispondenza sia nel dataset delle model card di HF sia nell'output dell'LLM. I valori numerici risultanti sono salvati strutturalmente in formato JSON per una corretta leggibilità negli studi successivi.
 
 \subsection{Risultati}
 research question
 grafici e statiche e motivazioni perché sono basse (pensate per utilizzo umano)
+la differenza dei modelli non misurati è utile
 
 
 \section{Limitazioni}
-- llm scarso\\
-- rate limit API
+Nonostante l'approccio adottato in questo lavoro si sia dimostrato efficiente e valido nell'automatizzare l'analisi dei pattern nell'utilizzo dei Pre-trained Models esistono alcune limitazioni che hanno influenzato i risultati finali:
+\begin{itemize}
+    \item \textbf{Qualità e capacità dell'LLM}, pur essendo un modello di dicreto livello presenta dei limiti intrinsechi:
+    \begin{itemize}
+        \item \textit{dimensioni ridotte}: con circa 3 miliardi di parametri, il modello impiegato potrebbe non avere le stesse capicità di comprensione e generalizzazione di altri LLM della stessa famiglia ma più grandi (7B, 13B, 70B parametri). Questo si traduce in risposte meno chiare e approfondite in presenza di codice articolato da analizzare.
+        \item \textit{finestra di contesto limitata}: il modello è in grado di gestire un massimo di 4096 token per ogni chiamata. Nella maggior parte dei casi, questo limite ha impedito di inviare tutti gli snippet di codice desiderati, constringendo a selezionarne un sottoinsieme, potenzialmente tralasciando informazioni di rilevio.
+    \end{itemize}
+
+    \item \textbf{Limitizioni delle API}
+    L'utilizzo dell’Hugging Face Inference API (nel piano gratuito) impone le seguenti restizioni:
+    \begin{itemize}
+        \item \textbf{Rate limit}: L’API impone un limite al numero di richieste che possono essere inviate in un determinato intervallo di tempo. Questo ha rallentato il processo di raccolta delle risposte, obbligando a protrarlo per diversi giorni. 
+        \item \textbf{Costi e restrizioni di accesso}: l'uso intensivo dell'API potrebbe sforare in costi aggiuntivi o richiedere piani a pagamento anche per quanto riguarda l'accesso ai singoli modelli della piattaforma non sempre disponibili gratuitamente.
+        \item \textbf{Possibili variazioni nelle prestazioni}: Le prestazioni dell’API possono variare a seconda del carico sui server di Hugging Face, influenzando la velocità delle risposte o, in casi rari, la disponibilità stessa del modello in uso.
+    \end{itemize}
+\end{itemize}
 
 
 \section{Conclusioni e sviluppi futuri}
 sviluppi:
 \begin{itemize}
+    \item cambiare embedder nel ricerca degli snippet e fare un clustering più profondo
     \item far generare tutta la card non solo codice
     \item possibile applicazione pratica è predirre proprio la card nel proprio progetto
 \end{itemize}
