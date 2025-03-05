@@ -7,15 +7,18 @@
 \usepackage{xcolor}
 
 \lstset{
+    language=Python,
+    backgroundcolor=\color{white},  
     basicstyle=\ttfamily\small,
     keywordstyle=\color{blue},
     commentstyle=\color{gray},
     numbers=left,
     numberstyle=\tiny,
     stepnumber=1,
+    showstringspaces=false,
     breaklines=true,
     breakatwhitespace=false,
-    columns=flexible,
+    columns=flexible
 }
 
 \lstdefinelanguage{json}{
@@ -27,19 +30,9 @@
     showstringspaces=false,
     breaklines=true,
     frame=single,
-    backgroundcolor=\color{gray!10},
-    literate=
-     *{0}{{{\color{blue}0}}}{1}
-      {1}{{{\color{blue}1}}}{1}
-      {2}{{{\color{blue}2}}}{1}
-      {3}{{{\color{blue}3}}}{1}
-      {4}{{{\color{blue}4}}}{1}
-      {5}{{{\color{blue}5}}}{1}
-      {6}{{{\color{blue}6}}}{1}
-      {7}{{{\color{blue}7}}}{1}
-      {8}{{{\color{blue}8}}}{1}
-      {9}{{{\color{blue}9}}}{1},
+    backgroundcolor=\color{gray!10}
 }
+\newcommand{\dafare}[1]{\textbf{\textcolor{red}{[Da fare: #1]}}}
 
 \title{Utilizzo degli LLM per Generare Hugging Face Model Card da esempi di codice}
 \author{Stefano Palombo}
@@ -71,6 +64,7 @@ Per raggiungere questo scopo è stata inizialmente condotta una ricerca approfon
 L’estrazione e l’analisi di queste sequenze di codice forniscono informazioni utili non solo per valutare la coerenza tra documentazione ufficiale e utilizzo pratico, ma anche per comprendere meglio come i modelli vengono adottati nella realtà. L’analisi dei pattern permette infatti di identificare best practices, iperparametri specifici che potrebbero non essere immediatamente evidenti nelle model card.\\
 L’approccio sviluppato potrebbe anche essere utilizzato in futuro per arricchire automaticamente le model card che attualmente non contengono esempi di codice, contribuendo a migliorare la qualità e la fruibilità della documentazione dei modelli preaddestrati, rendendo l’ecosistema di Hugging Face ancora più accessibile.\\
 
+\dafare{1}
 \textbf{CLAUDIO:Metti il link al repository github con il codice e i dati}
 
 \section{Contesto e Motivazione}
@@ -78,7 +72,7 @@ L’approccio sviluppato potrebbe anche essere utilizzato in futuro per arricchi
 In questa sezione verranno illustrati i principali strumenti impiegati, evidenziando il loro ruolo all'interno del workflow sperimentale e il motivo della loro scelta per ottimizzare l'accuratezza e l'efficienza dell’analisi:
 
 \subsubsection{Hugging Face Model card} 
-Rappresenta la documentazione ufficiale di un modello pre-addestrato (\textbf{PTM})  e include informazioni tecniche e pratiche per il suo utilizzo\cite{huggingface_model_cards}. Ogni model card è associata a un repository su Hugging Face e solitamente è contenuta in un file README.md, accessibile direttamente dalla pagina web del modello (es. \cite{all-MiniLM-L6-v2} \ref{fig:1}).\\
+Rappresenta la documentazione ufficiale di un modello pre-addestrato (\textbf{PTM})  e include informazioni tecniche e pratiche per il suo utilizzo\cite{huggingface_model_cards}. Ogni model card è associata a un repository su Hugging Face e solitamente è contenuta in un file README.md, accessibile direttamente dalla pagina web del modello (es. \cite{all-MiniLM-L6-v2} \ref{fig:model_card_completa}).\\
 Le informazioni comprese in una model card variano a seconda del creatore del modello, ma generalmente comprendono una descrizione generale, che illustra l'architettura del modello, lo scopo e le principali caratteristiche. Vengono poi specificati i task supportati, come classificazione, generazione di testo, embedding e traduzione. Inoltre, viene indicata la licenza sotto cui il modello è rilasciato, un aspetto fondamentale per comprenderne le condizioni d'uso. Un altro elemento chiave è la descrizione dei dataset di pre-training, che fornisce informazioni sulle fonti dei dati utilizzati per l'addestramento del modello. Se presenti, vengono segnalate eventuali restrizioni sulla lunghezza massima del contesto supportato, comunemente indicate come token limit.\\
 Una parte della model card potrebbe essere dedicata alla modalità di fine-tuning, offrendo suggerimenti su come adattare il modello per compiti specifici. Sono inoltre fornite informazioni su inferenza e deployment, con esempi pratici e spesso accompagnati da snippet di codice Python che utilizzano la libreria open-source \textit{transformers}\cite{wolf-etal-2020-transformers}, sviluppata direttamente da Hugging Face. Infine, vengono evidenziate le principali limitazioni del modello, incluse le performance su dati specifici e i potenziali problemi legati al suo utilizzo.\\
 Oltre al contenuto testuale, le model card includono una sezione di metadati in formato YAML all'inizio del file README.md. Questi metadati facilitano la ricerca e il filtraggio dei modelli nel \textit{Model Hub}, consentendo agli utenti di selezionare modelli in base a criteri come licenza, dataset utilizzati e lingue supportate.\\
@@ -90,7 +84,7 @@ Infine, recenti studi su larga scala hanno analizzato le model card esistenti, e
     \centering
     \includegraphics[width=.7\linewidth]{images/model_card.png}
     \caption{Esempio di model card}
-    \label{fig1:model_card_completa}
+    \label{fig:model_card_completa}
 \end{figure}
 
 \subsubsection{Processo di raccolta dati} \label{tirocinio}
@@ -163,12 +157,19 @@ Quando si utilizza un LLM open-source come LLaMA per generare testo (codice), è
 \end{itemize}
 
 \subsubsection{Clustering}
-
+Il \textbf{clustering} è una tecnica di machine learning \textit{non supervisionato} utilizzata per raggruppare un insieme di dati in sottogruppi omogenei, detti cluster, sulla base di caratteristiche comuni. L'obiettivo di questa tecnica è identificare strutture o pattern nascosti nei dati senza la necessità di etichette predefinite. A differenza della classificazione, in cui ogni elemento viene assegnato a una categoria nota, il clustering permette di scoprire relazioni tra i dati in modo autonomo. La qualità del risultato, in generale, dipende soprattutto dalla metrica di similarità utilizza come la distanza euclidea o la similarità del coseno.\\ (wikipedia)
+\dafare{2}
 
 \subsection{Motivazione} \label{motivation}
-Oltre alla misurazione di quanto la generazione automatica di codice, che rappresenti l'uso del modello in contesti reali, sia simile a quella ufficiale presente sulla piattaforma Hugging Face, i risultati condotti dall'esperimento possono essere interpreti anche come una fonte di arricchimento, soprattutto nelle model card in cui non ci sono esempi di codice.
-
-ESEMPIO DI CARD "microsoft/git-large" senza codice (motivazione)
+Oltre alla misurazione di quanto la generazione automatica di codice, che rappresenti l'uso del modello in contesti reali, sia simile a quella ufficiale presente sulla piattaforma Hugging Face, i risultati condotti dall'esperimento possono essere interpreti anche come una fonte di arricchimento, soprattutto nelle model card in cui non ci sono esempi di codice.\\
+Prendendo come esempio la model card del modello \textit{microsoft/git-large} (\url{https://huggingface.co/microsoft/git-large}) si può notare che è priva di esempi di codice.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/model_card_senza_codice.png}
+    \caption{Distribuzione metriche}
+    \label{fig:motivazione}
+\end{figure}
+\dafare{3}
 
 \section{Lavori correlati}
 In questa sezione vengono presentati i principali studi e strumenti esistenti che affrontano tematiche affini a quelle trattate in questo esperimento. L'analisi della letteratura permette di contestualizzare il lavoro svolto, evidenziando le soluzioni già proposte, i loro punti di forza e le eventuali limitazioni.
@@ -190,6 +191,7 @@ Nel complesso il sistema \textit{FOCUS} presenta diverse analogie con l'approcci
     \item \textit{Supporto agli sviluppatori}: entrambi i sistemi hanno come obbiettivo principale quello di aiutare i programmatori nello sviluppo software, riducendo gli sforzi.
 \end{itemize}
 
+
 \subsection{Generazione di codice tramite LLMs:}
 L’uso dei modelli di linguaggio di grandi dimensioni ha rivoluzionato il modo in cui gli sviluppatori scrivono software. Lo studio\cite{hou2024large} presenta un'analisi sistematica della letteratura scientifica applicata all'ingegneria dell'software, analizzando oltre 395 articoli pubblicati tra il 2017 e il 2024.\\
 I principali utilizzi degli LLMs nella generazione di codice includono:
@@ -200,6 +202,12 @@ I principali utilizzi degli LLMs nella generazione di codice includono:
 \end{itemize}
 L'analisi effettuata si collega direttamente a questo lavoro, perché si sfrutta un LLM per sintetizzare pattern di codice rappresentativi reali basandosi sugli snippet estratti da progetti open-source, un approccio simile Codex e AlphaCode, ma con l'obbietivo di automatizzare e migliorare la documentazione dei PTM di Hugging Face.\\
 Inoltre, l'utilizzo di metriche di similità come \textit{CodeBLEU} sono fondamentali per l'accuratezza e la valutazione del codice generato dagli LLMs.
+
+\dafare{4}
+ricontrollare
+
+\dafare{5}
+screen immagini draw.io
 
 \section{Approccio}
 Immagine e spiegazione legenda\\
@@ -348,7 +356,7 @@ Per ottimizzare i tempi di esecuzione, in presenza di un elevato numero di file 
 
 \subsubsection{Salvataggio informazioni}
 L'insieme degli snippet selezionati da ogni cluster vengono infine salvati in un file JSON per facilitarne la consultazione e l’utilizzo nella successiva fase di analisi, secondo la seguente struttura:\\\\\\
-\begin{lstlisting}[language=json, caption={Esempio di struttura JSON dei migliori snippet selezionati}, label={lst:json-example}]
+\begin{lstlisting}[language=json, caption={Esempio di struttura JSON dei migliori snippet selezionati}, label={lst:json-snippet}]
 {
   "bert-base-uncased": {
     "path/to/file1.py": [
@@ -382,7 +390,7 @@ Il prompt ha come unico scopo di istruire il modello a individuare eclusivamente
     \item strutture tipiche di utilizzo dei modelli PTM
 \end{itemize}
 La tecnica utilizza nella costruzione è \textit{zero-shot prompting} perché non si menzionano esempi nella stringa, puntanto sulla capicità del modello di generalizzare nelle risposte.
-\begin{lstlisting}[]
+\begin{lstlisting}
 system_prompt = (
 "You are an AI assistant specialized in Python.
 I will provide you with a series of code snippets extracted from various Python files.
@@ -473,6 +481,53 @@ In sintesi, questo approccio consente di massimizzare l’efficacia delle chiama
 \end{itemize}
 
 \subsubsection{Esempio di card generata}
+Si mostra il codice generato per il modello \textit{kakaobrain/karlo-v1-alpha-image-variations} che si applica generalmente per generare immagini partendo da testo (\url{https://huggingface.co/kakaobrain/karlo-v1-alpha-image-variations})
+\begin{lstlisting}
+def load_data():
+    # Load data from kakaobrain/karlo-v1-alpha-image-variations
+    data = pd.read_csv('data/train.csv')
+    return data
+
+def preprocess_image(image):
+    # Resize and normalize image
+    image = tf.image.resize(image, (224, 224))
+    image = tf.image.per_image_standardization(image)
+    return image
+
+def create_model(input_shape):
+    # Create Keras model
+    model = tf.keras.models.Sequential([
+        tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=input_shape),
+        tf.keras.layers.MaxPooling2D((2, 2)),
+        tf.keras.layers.Conv2D(64, (3, 3), activation='relu'),
+        tf.keras.layers.MaxPooling2D((2, 2)),
+        tf.keras.layers.Conv2D(128, (3, 3), activation='relu'),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(128, activation='relu'),
+        tf.keras.layers.Dense(10, activation='softmax')
+    ])
+    return model
+
+def train_model(model, data):
+    # Train model
+    model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+    model.fit(data, epochs=10)
+    return model
+
+def evaluate_model(model, data):
+    # Evaluate model
+    loss, accuracy = model.evaluate(data)
+    return loss, accuracy
+
+def save_model(model):
+    # Save model
+    model.save('model.h5')
+\end{lstlisting}
+Si può notare che, sebbene il codice generato non rappresenti un'implementazione completa del modello kakaobrain/karlo-v1-alpha-image-variations, esso fornisce comunque una struttura chiara e coerente con l’utilizzo tipico del modello. In particolare, emergono aspetti tecnici utili, come la gestione dei dati di input, la pre-elaborazione delle immagini, la definizione dell’architettura della rete neurale e le impostazioni per l’addestramento.\\
+Questi dettagli, anche se non garantiscono un’implementazione esatta del modello, risultano comunque utili per comprendere l’approccio adottato nella documentazione della model card e possono servire come base per sviluppatori interessati a integrare il modello in un progetto pratico.
+
+\dafare{5}
+screen immagini draw.io
 
 \section{Validazione e risultati}
 (IMMAGINE)\\
@@ -492,8 +547,18 @@ L'obbietivo principale è valutare l'efficacia e la qualità delle model card ge
 Nonostante nel dump \cite{ait_hfcommunity_2023}  ci fosse la feature "card data", cioè le informazioni riguardanti la model card di ogni PTM, non erano presenti gli snippet di codice Python che mostrano l'utilizzo del modello specifico in un esempio di applicazione.\\  
 Quindi, per ottenere queste sezioni della card di HF, si è sviluppato un semplice script che utilizza la libreria \textit{BeautifulSoup}\cite{Richardson_Beautiful_Soup} per effettuare web scarping delle pagine HTML dei PTM popolari selezioni per l'esperimento. Ad ogni iterazione si ricerca il tag \textit{\textless code\textgreater} e quando avviene la corrispondenza si controlla che il risultato sia effettivamente appartenente al linguaggio Python, quindi semplicemente verificando che nella stringa siano presenti le keyword "import", "from" e "def".\\
 Si noti che per ogni PTM analizzato lo scraper potrebbe trovare anche più di uno snippet Python, perché nella stessa model card potrebbe venir illustrate diverse pipeline di utilizzo: dall'importazione con diverse librerie (per esempio \textit{transformers} e \textit{sentence\_transformers}) fino a metodi di encoding tramite embeddings.\\
-Il dataset è strutturato secondo il seguente formato JSON:\\
-\\
+Un esempio di struttura JSON è il seguente:\\
+\begin{lstlisting}[language=json, caption={Esempio di struttura per le card ufficiali di HF}, label={lst:json-snippet}]
+{
+"sentence-transformers/all-MiniLM-L12-v2": [ 
+    "from sentence_transformers..., 
+    "from transformers import AutoTokenizer...
+    ],
+"roberta-large": [
+    "import pipeline...
+    ],...
+}
+\end{lstlisting}
 Dall'analisi effettuata il risultato è di 751 modelli che nelle proprie model card contengano almeno uno snippet di codice Python rispetto ai 1064 di partenza. La differenza è composta quindi da PTM che nonostante siano mediamente popolari sull'utilizzo pratico in progetti open-source abbiano una documentazione probabilmente non completa ed efficace agli sviluppatori; ciò motiva maggiormente lo scopo generale di questo studio.
 
 \subsubsection{Metriche}
@@ -576,35 +641,51 @@ Il processo di calcolo delle metriche menzionate prevede di iterare sui modelli 
 \subsection{Risultati}
 A partire da un insieme iniziale di \textbf{1,064 PTM}, utilizzati in \textbf{141,749 script Python}, il processo descritto nell’approccio ha portato alla generazione di \textbf{875 frammenti} di codice sintetizzati dall’LLM. Questi rappresentano i pattern ricorrenti di un sottinsieme degli snippet selezionati durante il clustering. Tuttavia, \textbf{186 PTM} non hanno prodotto alcun output valido dall’LLM, poiché gli snippet in input non rispettavano il criterio imposto dall’espressione regolare, che richiedeva la presenza esplicita del nome del modello di riferimento.\\
 Parallelamente, il dataset contenente le sezioni di codice estratte dalle model card ufficiali di Hugging Face tramite web scraping ha restituito dati per \textbf{751 modelli}, un valore inferiore rispetto all'insieme iniziale di PTM analizzati, sempre pari a 1064. Pertanto, incrociando i risultati ottenuti dall’LLM con quelli delle model card e considerando solo i modelli comuni, le metriche di valutazione sono state calcolate su un totale di 625 occorrenze.\\
-(GRAFICI)\\
-\\
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/risultati1.png}
+    \caption{Distribuzione metriche}
+    \label{fig:risultati1}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/risultati2.png}
+    \caption{Violin plot metriche}
+    \label{fig:risultati2}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/risultati3.png}
+    \caption{Pair plot metriche}
+    \label{fig:risultati3}
+\end{figure}
 
 \subsubsection{Distribuzione dei valori CodeBLEU}
 La misurazione si basa su un'istanza in cui sono stati assegnati i seguenti pesi nell'equazione \ref{codebleu}: 0.05, 0.05, 0.45, 0.45 rispettivamente (n-gram match, weighted n-gram match, syntax match, data flow match). Questa scelta è motivata dal fatto che l’obiettivo principale dell’analisi è privileggiare la corrispondenza a livello semantico e strutturale, dando meno valore alle scelte terminologiche dei due codici.\\
-Osservando il primo grafico (istrogramma), I valori si concentrano principalmente nell’intervallo 0.2 - 0.4, con un picco attorno a 0.3. Questo suggerisce che, sebbene ci sia una certa somiglianza tra i codici generati dall’LLM e quelli delle model card, la corrispondenza non è particolarmente elevata. Il fatto che pochi valori superino 0.5 indica che le sequenze di codice sintetizzate non sono una replica diretta di quelle ufficiali, ma piuttosto una versione generalizzata dei pattern più comuni.\\
-Nel Violin Plot (secondo grafico), la presenza di un valore mediano attorno a 0.3 confermano la tendenza già osservata con l’istogramma, evidenziando la maggior densità dei punteggi CodeBLEU nell’intervallo 0.2 - 0.4. Nel Pair Plot (terzo grafico), si nota come i punti relativi a CodeBLEU siano distribuiti in modo abbastanza ampio, indicando una certa variabilità dei risultati. Inoltre, dal confronto con le altre metriche, non emerge una correlazione lineare particolarmente forte.
+Osservando il primo grafico \ref{fig:risultati1}, i valori si concentrano principalmente nell’intervallo 0.2 - 0.4, con un picco attorno a 0.3. Questo suggerisce che, sebbene ci sia una certa somiglianza tra i codici generati dall’LLM e quelli delle model card, la corrispondenza non è particolarmente elevata. Il fatto che pochi valori superino 0.5 indica che le sequenze di codice sintetizzate non sono una replica diretta di quelle ufficiali, ma piuttosto una versione generalizzata dei pattern più comuni.\\
+Nel Violin Plot \ref{fig:risultati2}, la presenza di un valore mediano attorno a 0.3 confermano la tendenza già osservata con l’istogramma, evidenziando la maggior densità dei punteggi CodeBLEU nell’intervallo 0.2 - 0.4. Nel Pair Plot \ref{fig:risultati3}, si nota come i punti relativi a CodeBLEU siano distribuiti in modo abbastanza ampio, indicando una certa variabilità dei risultati. Inoltre, dal confronto con le altre metriche, non emerge una correlazione lineare particolarmente forte.
 
 \subsubsection{Distribuzione della Similarità Coseno}
-Qui i valori nel primo grafico sono concentrati tra 0.8 e 0.9, con una distribuzione fortemente sbilanciata verso l’alto. Questo risultato suggerisce un’elevata sovrapposizione tra i due insiemi di dati, ma si tratta di un risultato potenzialmente fuorviante.\\
+Qui i valori nel primo grafico \ref{fig:risultati1} sono concentrati tra 0.8 e 0.9, con una distribuzione fortemente sbilanciata verso l’alto. Questo risultato suggerisce un’elevata sovrapposizione tra i due insiemi di dati, ma si tratta di un risultato potenzialmente fuorviante.\\
 La similarità coseno tende infatti a gonfiare particolarmente i punteggi, soprattutto quando i testi confrontati condividono termini e strutture simili, anche se il significato complessivo può essere differente. Siccome la metrica mostra valori sempre molto alti, non è sempre un indicatore affidabile della qualità della corrispondenza tra i due codici.\\
-Dal Violin Plot si nota come l’intervallo sia compreso quasi interamente tra 0.85 e 1.0, con un picco marcato vicino a 0.9, confermando la scarsa variabilità di questa metrica. Nel Pair Plot, la distribuzione lungo l’asse della similarità coseno appare molto concentrata, e anche osservando i grafici di correlazione con CodeBLEU o METEOR, non si evidenziana una forte correlazione.
+Dal Violin Plot \ref{fig:risultati2} si nota come l’intervallo sia compreso quasi interamente tra 0.85 e 1.0, con un picco marcato vicino a 0.9, confermando la scarsa variabilità di questa metrica. Nel Pair Plot \ref{fig:risultati3}, la distribuzione lungo l’asse della similarità coseno appare molto concentrata, e anche osservando i grafici di correlazione con CodeBLEU o METEOR, non si evidenziana una forte correlazione.
 
 \subsubsection{Distribuzione dei valori METEOR}
-In questo caso, invece, i valori nell'istogramma sono molto bassi, concentrati principalmente tra 0.0 e 0.1, con pochissimi esempi che superano 0.3. Questo indica che il codice generato dall’LLM differisce in modo significativo da quello presente nelle model card ufficiali di HF, almeno secondo i criteri di METEOR.\\
-Tuttavia, bisogna considerare che METEOR è una metrica più adatta alla valutazione di testi in linguaggio naturale e potrebbe non essere del tutto appropriata per confrontare frammenti di codice, dove la similarità semantica non sempre si riflette in una corrispondenza esatta tra parole e sinonimi. Anche nel Violin Plot, METEOR mostra una distribuzione fortemente concentrata in prossimità dello 0, con rare eccezioni che raggiungono valori più alti. Il Pair Plot evidenzia inoltre come la maggior parte dei punti si collochi nella parte bassa della scala METEOR, indipendentemente dai valori di CodeBLEU o della similarità coseno.
+In questo caso, invece, i valori nell'istogramma \ref{fig:risultati1} sono molto bassi, concentrati principalmente tra 0.0 e 0.1, con pochissimi esempi che superano 0.3. Questo indica che il codice generato dall’LLM differisce in modo significativo da quello presente nelle model card ufficiali di HF, almeno secondo i criteri di METEOR.\\
+Tuttavia, bisogna considerare che METEOR è una metrica più adatta alla valutazione di testi in linguaggio naturale e potrebbe non essere del tutto appropriata per confrontare frammenti di codice, dove la similarità semantica non sempre si riflette in una corrispondenza esatta tra parole e sinonimi. Anche nel Violin Plot \ref{fig:risultati2}, METEOR mostra una distribuzione fortemente concentrata in prossimità dello 0, con rare eccezioni che raggiungono valori più alti. Il Pair Plot \ref{fig:risultati3} evidenzia inoltre come la maggior parte dei punti si collochi nella parte bassa della scala METEOR, indipendentemente dai valori di CodeBLEU o della similarità coseno.
 
 \subsubsection{Considerazioni analisi comparata} 
 Osservando i tre grafici nel loro insieme, emergono alcune considerazioni interessanti:
 \begin{itemize} 
-\item Il \textbf{Violin Plot} \ref{} riassume in un’unica vista la distribuzione e la densità dei valori per ciascuna metrica. In particolare, si nota come CodeBLEU abbia un range più ampio, con valori che oscillano tipicamente tra 0.2 e 0.4, mentre la similarità coseno risulti costantemente elevata (attorno a 0.85--0.95) e METEOR sia invece molto basso (con la maggior parte dei valori vicini a 0.0). 
-\item Il \textbf{Pair Plot} \ref{} mostra, oltre alle distribuzioni marginali sulle diagonali, i grafici di dispersione tra le coppie di metriche. Si può osservare: 
+\item Il \textbf{Violin Plot} \ref{fig:risultati2} riassume in un’unica vista la distribuzione e la densità dei valori per ciascuna metrica. In particolare, si nota come CodeBLEU abbia un range più ampio, con valori che oscillano tipicamente tra 0.2 e 0.4, mentre la similarità coseno risulti costantemente elevata (attorno a 0.85--0.95) e METEOR sia invece molto basso (con la maggior parte dei valori vicini a 0.0). 
+\item Il \textbf{Pair Plot} \ref{fig:risultati3} mostra, oltre alle distribuzioni marginali sulle diagonali, i grafici di dispersione tra le coppie di metriche. Si può osservare: 
 \begin{itemize} \item \textit{CodeBLEU vs. Similarità Coseno}: non vi è una correlazione lineare evidente; ciò significa che un valore alto di similarità coseno non implica necessariamente un valore alto di CodeBLEU. 
 \item \textit{CodeBLEU vs. METEOR}: anche qui la dispersione è piuttosto ampia, indicando che punteggi alti o bassi di CodeBLEU non si riflettono in modo coerente in METEOR. 
 \item \textit{Similarità Coseno vs. METEOR}: la maggior parte dei punti si concentra in corrispondenza di valori di coseno elevati e METEOR molto bassi, evidenziando come le due metriche misurino aspetti molto diversi del codice. 
 \end{itemize} 
 \end{itemize}
 Nel complesso, i valori numerici ottenuti indicano che il codice generato dall’LLM non è una semplice copia di quello presente nelle model card ufficiali, ma piuttosto una sintesi alternativa basata su pattern più specifici, estratti direttamente dagli snippet di codice reali. Questo significa che, anche se alcune metriche automatiche risultano basse, il codice prodotto non è necessariamente inattendibile. \\
-Al contrario, questi risultati potrebbero rivelarsi particolarmente utili per gli sviluppatori umani, i quali, analizzando il codice generato, possono astrarre verso pattern più generali, cogliendo dettagli tecnici che le metriche automatiche non riescono a valutare appieno.\\
+Al contrario, questi risultati potrebbero rivelarsi particolarmente utili per gli \textbf{sviluppatori umani}, i quali, analizzando il codice generato, possono astrarre verso pattern più generali, cogliendo dettagli tecnici che le metriche automatiche non riescono a valutare appieno.\\
 Inoltre in riferimento alla \nameref{motivation}, per i modelli per cui l'LLM ha prodotto un output ma non dispongono di una model card ufficiale contenente codice (\textbf{250} codici), il materiale potrebbe essere utilizzato come base per arricchire direttamente la documentazione del modello, proponendo snippet rappresentativi del suo utilizzo tipico. Questo approccio potrebbe facilitare la creazione di model card più complete e accessibili, migliorando la fruibilità dei modelli per la community di sviluppatori.
 
 \section{Limitazioni}
