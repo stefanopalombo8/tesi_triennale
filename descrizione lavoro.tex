@@ -513,9 +513,9 @@ Dopo aver raccolto le card ufficiali, si è proceduti nel valutare quanto fosser
         
     \end{itemize}
     Considerando le quattro metriche appena citate, il calcolo di CodeBLEU è descritto dalla media pesata:
-    \[
+    \begin{equation}
         \text{CodeBLEU} = \frac{\alpha \cdot \text{n-gram match} \;+\; \beta \cdot \text{weighted n-gram match} \;+\; \gamma \cdot \text{syntax match} \;+\; \delta \cdot \text{data flow match}}{4}
-    \]
+    \end{equation}
     Dove:\\
     $\alpha$, $\beta$, $\gamma$, $\delta$ sono i pesi assegnati a ciascuna componente della metrica. In assenza di preferenze specifiche, questi pesi sono spesso uguali ovvero impostati a 1.  
     \item Cosine similarity con Embedding: misura semanticamente la somiglianza tra due testi trasformandoli in vettori tramite modelli di embedding. Il calcolo tra due vettori $\mathbf{A}$ e $\mathbf{B}$ è definita come:
@@ -540,7 +540,7 @@ Parallelamente, il dataset contenente le sezioni di codice estratte dalle model 
 \subsubsection{Distribuzione dei valori CodeBLEU}
 La misurazione si basa su un'istanza in cui sono stati assegnati i seguenti pesi: 0.05, 0.05, 0.45, 0.45 rispettivamente (n-gram match, weighted n-gram match, syntax match, data flow match). Questa scelta è motivata dal fatto che l’obiettivo principale dell’analisi è privileggiare la corrispondenza a livello semantico e strutturale, dando meno valore alle scelte terminologiche dei due codici.\\
 Osservando il primo grafico (istrogramma), I valori si concentrano principalmente nell’intervallo 0.2 - 0.4, con un picco attorno a 0.3. Questo suggerisce che, sebbene ci sia una certa somiglianza tra i codici generati dall’LLM e quelli delle model card, la corrispondenza non è particolarmente elevata. Il fatto che pochi valori superino 0.5 indica che le sequenze di codice sintetizzate non sono una replica diretta di quelle ufficiali, ma piuttosto una versione generalizzata dei pattern più comuni.\\
-Nel Violin Plot (secondo grafico), la forma allungata e la presenza di un valore mediano attorno a 0.3 confermano la tendenza già osservata con l’istogramma, evidenziando la maggior densità dei punteggi CodeBLEU nell’intervallo 0.2 - 0.4. Nel Pair Plot (terzo grafico), si nota come i punti relativi a CodeBLEU siano distribuiti in modo abbastanza ampio, indicando una certa variabilità dei risultati. Inoltre, dal confronto con le altre metriche, non emerge una correlazione lineare particolarmente forte.
+Nel Violin Plot (secondo grafico), la presenza di un valore mediano attorno a 0.3 confermano la tendenza già osservata con l’istogramma, evidenziando la maggior densità dei punteggi CodeBLEU nell’intervallo 0.2 - 0.4. Nel Pair Plot (terzo grafico), si nota come i punti relativi a CodeBLEU siano distribuiti in modo abbastanza ampio, indicando una certa variabilità dei risultati. Inoltre, dal confronto con le altre metriche, non emerge una correlazione lineare particolarmente forte.
 
 \subsubsection{Distribuzione della Similarità Coseno}
 Qui i valori nel primo grafico sono concentrati tra 0.8 e 0.9, con una distribuzione fortemente sbilanciata verso l’alto. Questo risultato suggerisce un’elevata sovrapposizione tra i due insiemi di dati, ma si tratta di un risultato potenzialmente fuorviante.\\
@@ -583,7 +583,7 @@ Pur essendo un modello di dicreto livello presenta comunque dei limiti intrinsec
     \item \textit{finestra di contesto limitata}: il modello è in grado di gestire un massimo di 4096 token per ogni chiamata. Nella maggior parte dei casi, questo limite ha impedito di inviare tutti gli snippet di codice desiderati, constringendo a selezionarne un piccolo sottoinsieme, potenzialmente tralasciando informazioni di rilevio.
 \end{itemize}
 
-\subsection{Limitizioni delle API}
+\subsection{Limitazioni delle API}
 Le API, in questo esperimento, sono state adoperate in due contesti differenti.\\
 L'utilizzo dell’\textit{Hugging Face Inference API} (nel piano gratuito) impone le seguenti restizioni:
 \begin{itemize}
