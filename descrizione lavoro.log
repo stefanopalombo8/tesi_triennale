@@ -1,0 +1,681 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.22)  6 MAR 2025 17:12
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**"descrizione lavoro.tex"
+(./descrizione lavoro.tex
+LaTeX2e <2022-11-01> patch level 1
+L3 programming layer <2023-02-22>
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2022/07/02 v1.4n Standard LaTeX document class
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2022/07/02 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count185
+\c@section=\count186
+\c@subsection=\count187
+\c@subsubsection=\count188
+\c@paragraph=\count189
+\c@subparagraph=\count190
+\c@figure=\count191
+\c@table=\count192
+\abovecaptionskip=\skip48
+\belowcaptionskip=\skip49
+\bibindent=\dimen140
+)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks16
+)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen141
+\Gin@req@width=\dimen142
+)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2022/04/08 v2.17n AMS math features
+\@mathmargin=\skip50
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2021/08/26 v2.01 AMS text
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks17
+\ex@=\dimen143
+))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen144
+)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2022/04/08 v2.04 operator names
+)
+\inf@bad=\count193
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count194
+\leftroot@=\count195
+LaTeX Info: Redefining \overline on input line 399.
+LaTeX Info: Redefining \colon on input line 410.
+\classnum@=\count196
+\DOTSCASE@=\count197
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box51
+\strutbox@=\box52
+LaTeX Info: Redefining \big on input line 722.
+LaTeX Info: Redefining \Big on input line 723.
+LaTeX Info: Redefining \bigg on input line 724.
+LaTeX Info: Redefining \Bigg on input line 725.
+\big@size=\dimen145
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count198
+LaTeX Info: Redefining \bmod on input line 905.
+LaTeX Info: Redefining \pmod on input line 910.
+LaTeX Info: Redefining \smash on input line 940.
+LaTeX Info: Redefining \relbar on input line 970.
+LaTeX Info: Redefining \Relbar on input line 971.
+\c@MaxMatrixCols=\count199
+\dotsspace@=\muskip16
+\c@parentequation=\count266
+\dspbrk@lvl=\count267
+\tag@help=\toks18
+\row@=\count268
+\column@=\count269
+\maxfields@=\count270
+\andhelp@=\toks19
+\eqnshift@=\dimen146
+\alignsep@=\dimen147
+\tagshift@=\dimen148
+\tagwidth@=\dimen149
+\totwidth@=\dimen150
+\lineht@=\dimen151
+\@envbody=\toks20
+\multlinegap=\skip51
+\multlinetaggap=\skip52
+\mathdisplay@stack=\toks21
+LaTeX Info: Redefining \[ on input line 2953.
+LaTeX Info: Redefining \] on input line 2954.
+)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2023-02-07 v7.00v Hypertext links for LaTeX
+
+(/usr/local/texlive/2023/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
+)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/local/texlive/2023/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2022-05-17 v2.50 Cross-referencing by name of section
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+))
+\c@section@level=\count271
+)
+\@linkdim=\dimen152
+\Hy@linkcounter=\count272
+\Hy@pagecounter=\count273
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2023-02-07 v7.00v Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)
+\Hy@SavedSpaceFactor=\count274
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2023-02-07 v7.00v Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+)
+Package hyperref Info: Hyper figures OFF on input line 4177.
+Package hyperref Info: Link nesting OFF on input line 4182.
+Package hyperref Info: Hyper index ON on input line 4185.
+Package hyperref Info: Plain pages OFF on input line 4192.
+Package hyperref Info: Backreferencing OFF on input line 4197.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4425.
+\c@Hy@tempcnt=\count275
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip17
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4763.
+\XeTeXLinkMargin=\dimen153
+
+(/usr/local/texlive/2023/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(/usr/local/texlive/2023/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count276
+\Field@Width=\dimen154
+\Fld@charsize=\dimen155
+Package hyperref Info: Hyper figures OFF on input line 6042.
+Package hyperref Info: Link nesting OFF on input line 6047.
+Package hyperref Info: Hyper index ON on input line 6050.
+Package hyperref Info: backreferencing OFF on input line 6057.
+Package hyperref Info: Link coloring OFF on input line 6062.
+Package hyperref Info: Link coloring with OCG OFF on input line 6067.
+Package hyperref Info: PDF/A mode OFF on input line 6072.
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/atbegshi-ltx.sty
+Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+package with kernel methods
+)
+\Hy@abspage=\count277
+\c@Item=\count278
+\c@Hfootnote=\count279
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2023-02-07 v7.00v Hyperref driver for pdfTeX
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
+kage
+with kernel methods
+)
+\Fld@listcount=\count280
+\c@bookmark@seq@number=\count281
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
+
+(/usr/local/texlive/2023/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+85.
+)
+\Hy@SectionHShift=\skip53
+) (/usr/local/texlive/2023/texmf-dist/tex/latex/cite/cite.sty
+LaTeX Info: Redefining \cite on input line 302.
+LaTeX Info: Redefining \nocite on input line 332.
+Package: cite 2015/02/27  v 5.5
+)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count282
+\lst@gtempboxa=\box53
+\lst@token=\toks22
+\lst@length=\count283
+\lst@currlwidth=\dimen156
+\lst@column=\count284
+\lst@pos=\count285
+\lst@lostspace=\dimen157
+\lst@width=\dimen158
+\lst@newlines=\count286
+\lst@lineno=\count287
+\lst@maxwidth=\dimen159
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
+\c@lstnumber=\count288
+\lst@skipnumbers=\count289
+\lst@framebox=\box54
+)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2023/02/27 1.9 listings configuration
+))
+Package: listings 2023/02/27 1.9 (Carsten Heinz)
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2022/06/12 v2.14 LaTeX color extensions (UK)
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 227.
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1353.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1357.
+Package xcolor Info: Model `RGB' extended on input line 1369.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1371.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1372.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1373.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1374.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1375.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1376.
+)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2023/02/27 1.9 listings language file
+)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count290
+\l__pdf_internal_box=\box55
+)
+(./descrizione lavoro.aux
+
+LaTeX Warning: Label `lst:json-snippet' multiply defined.
+
+)
+\openout1 = `"descrizione lavoro.aux"'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+ (/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count291
+\scratchdimen=\dimen160
+\scratchbox=\box56
+\nofMPsegments=\count292
+\nofMParguments=\count293
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count294
+\MPscratchDim=\dimen161
+\MPnumerator=\count295
+\makeMPintoPDFobject=\count296
+\everyMPtoPDFconversion=\toks24
+) (/usr/local/texlive/2023/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+Package hyperref Info: Link coloring OFF on input line 41.
+
+(./descrizione lavoro.out) (./descrizione lavoro.out)
+\@outlinefile=\write3
+\openout3 = `"descrizione lavoro.out"'.
+
+\c@lstlisting=\count297
+
+Overfull \hbox (5.93616pt too wide) in paragraph at lines 46--53
+\OT1/cmr/m/n/9 Sebbene le met-riche au-to-matiche pos-sano non sem-pre cogliere
+ le somiglianze
+ []
+
+[1
+
+{/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+Overfull \hbox (15.91728pt too wide) in paragraph at lines 57--66
+\OT1/cmr/m/n/10 L'esperimento di tesi si col-loca pro-prio in questo con-testo,
+ con-cen-tran-dosi sull'analisi
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 57--66
+
+ []
+
+[2]
+<img/model_card.png, id=168, 545.53813pt x 426.59375pt>
+File: img/model_card.png Graphic file (type png)
+<use img/model_card.png>
+Package pdftex.def Info: img/model_card.png  used on input line 85.
+(pdftex.def)             Requested size: 276.00105pt x 215.82195pt.
+ [3]
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./img/data_collection.pdf): 
+PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<img/data_collection.pdf, id=180, 504.92638pt x 125.5089pt>
+File: img/data_collection.pdf Graphic file (type pdf)
+<use img/data_collection.pdf>
+Package pdftex.def Info: img/data_collection.pdf  used on input line 94.
+(pdftex.def)             Requested size: 310.4979pt x 77.18271pt.
+[4] [5 <./img/model_card.png> <./img/data_collection.pdf>]
+Overfull \hbox (26.31989pt too wide) in paragraph at lines 127--131
+\OT1/cmr/m/n/10 L'architettura Trans-former ^^Re cos-ti-tuita prin-ci-pal-mente
+ da due com-po-nenti: l'\OT1/cmr/bx/n/10 encoder\OT1/cmr/m/n/10 ,
+ []
+
+[6] [7]
+Overfull \hbox (8.13855pt too wide) in paragraph at lines 145--151
+\OT1/cmr/m/n/10 Questi mod-elli sono disponi-bili in di-verse di-men-sioni (7B,
+ 13B, 33B, 65B parametri
+ []
+
+
+Overfull \hbox (2.49837pt too wide) in paragraph at lines 145--151
+\OT1/cmr/m/n/10 Quando si uti-lizza un LLM open-source come LLaMA per gener-are
+ testo (codice),
+ []
+
+
+Overfull \hbox (16.61177pt too wide) in paragraph at lines 145--151
+\OT1/cmr/m/n/10 ^^Re pos-si-bile per-son-al-iz-zare il com-por-ta-mento del mod
+-ello at-traverso di-versi parametri,
+ []
+
+[8{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
+}]
+<img/model_card_senza_codice.png, id=273, 556.0775pt x 408.02437pt>
+File: img/model_card_senza_codice.png Graphic file (type png)
+<use img/model_card_senza_codice.png>
+Package pdftex.def Info: img/model_card_senza_codice.png  used on input line 16
+8.
+(pdftex.def)             Requested size: 345.0pt x 253.14682pt.
+ [9] [10 <./img/model_card_senza_codice.png>] [11]
+Underfull \hbox (badness 10000) in paragraph at lines 213--215
+
+ []
+
+<img/approccio1.png, id=298, 722.7pt x 361.35pt>
+File: img/approccio1.png Graphic file (type png)
+<use img/approccio1.png>
+Package pdftex.def Info: img/approccio1.png  used on input line 220.
+(pdftex.def)             Requested size: 155.24895pt x 77.62256pt.
+<img/approccio2.png, id=299, 925.056pt x 442.2924pt>
+File: img/approccio2.png Graphic file (type png)
+<use img/approccio2.png>
+Package pdftex.def Info: img/approccio2.png  used on input line 227.
+(pdftex.def)             Requested size: 155.24895pt x 74.22362pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<img/approccio3.png, id=302, 925.056pt x 442.2924pt>
+File: img/approccio3.png Graphic file (type png)
+<use img/approccio3.png>
+Package pdftex.def Info: img/approccio3.png  used on input line 256.
+(pdftex.def)             Requested size: 155.24895pt x 74.22362pt.
+<img/approccio4.png, id=303, 722.7pt x 361.35pt>
+File: img/approccio4.png Graphic file (type png)
+<use img/approccio4.png>
+Package pdftex.def Info: img/approccio4.png  used on input line 263.
+(pdftex.def)             Requested size: 155.24895pt x 77.62256pt.
+[12]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[13 <./img/approccio1.png> <./img/approccio2.png>] [14 <./img/approccio3.png> <
+./img/approccio4.png>]
+Overfull \hbox (5.94496pt too wide) in paragraph at lines 306--311
+\OT1/cmr/m/n/10 Di con-seguenza, questo range per-me-tte di se-lezione i file i
+n base alla loro lunghezza
+ []
+
+
+Overfull \hbox (2.16737pt too wide) in paragraph at lines 313--317
+\OT1/cmr/m/n/10 L'ipotetico ap-proc-cio di far va-l-utare al mod-ello di-ret-ta
+-mente in-teri script Python,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 313--317
+
+ []
+
+[15]
+Overfull \hbox (0.22292pt too wide) in paragraph at lines 332--333
+\OT1/cmr/m/n/10 degli in-ter-valli di righe sovrap-posti, garan-tendo che snip-
+pet con-tigui non vengano
+ []
+
+
+Overfull \hbox (18.30621pt too wide) in paragraph at lines 335--340
+\OT1/cmr/m/n/10 pipeline di to-k-eniz-zazione, cal-colo dell'attenzione e in-fi
+ne gen-er-azione dell'embedding
+ []
+
+[16] [17]
+Underfull \hbox (badness 10000) in paragraph at lines 352--353
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 358--359
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 358--359
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 358--359
+
+ []
+
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 359.
+[18] [19]
+Overfull \hbox (23.18524pt too wide) detected at line 418
+[][][]\OML/cmm/m/it/10 allowed[]input[]tokens \OT1/cmr/m/n/10 = \OML/cmm/m/it/1
+0 max[]total[]tokens \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 system[]tokens \OMS/
+cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 reserved[]output[]tokens
+ []
+
+[20] [21]
+Overfull \hbox (30.55623pt too wide) in paragraph at lines 479--480
+[]\OT1/cmr/m/n/10 le risposte con-tengano in-for-mazioni utili e co-er-enti con
+ l'obiettivo dell'esperimento 
+ []
+
+
+Overfull \hbox (6.02483pt too wide) in paragraph at lines 484--485
+\OT1/cmr/m/n/10 ([]$\OT1/cmtt/m/n/10 https : / / huggingface . co / kakaobrain 
+/ karlo-[]v1-[]alpha-[]image-[]variations$[]\OT1/cmr/m/n/10 ) 
+ []
+
+[22]
+Overfull \hbox (2.38948pt too wide) in paragraph at lines 526--528
+\OT1/cmr/m/n/10 Si pu^^Ro no-tare che, sebbene il codice gen-er-ato non rap-p-r
+e-senti un'implementazione
+ []
+
+[23]
+Underfull \hbox (badness 10000) in paragraph at lines 533--534
+
+ []
+
+
+Overfull \hbox (4.58983pt too wide) in paragraph at lines 535--538
+\OT1/cmr/m/n/10 L'LLM ad-op-er-ato per l'intero pro-cesso ^^Re \OT1/cmr/bx/n/10
+ meta-llama/Llama-3.2-3B-Instruct\OT1/cmr/m/n/10 ,
+ []
+
+
+Overfull \hbox (25.61063pt too wide) in paragraph at lines 540--541
+\OT1/cmr/m/n/10 cal-mente il mod-ello n^^Re con-fig-u-rare l'ambiente perch^^Se
+ l'API for-nisce un'interfaccia
+ []
+
+LaTeX Font Info:    Trying to load font information for OML+cmr on input line 5
+48.
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/omlcmr.fd
+File: omlcmr.fd 2022/07/10 v2.5l Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/it' in size <10> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 548.
+
+Underfull \hbox (badness 10000) in paragraph at lines 547--551
+
+ []
+
+[24] [25] [26] [27]
+Overfull \hbox (145.2678pt too wide) detected at line 625
+[][][][] \OT1/cmr/m/n/10 = []
+ []
+
+[28]
+<img/risultati1.png, id=555, 925.056pt x 442.2924pt>
+File: img/risultati1.png Graphic file (type png)
+<use img/risultati1.png>
+Package pdftex.def Info: img/risultati1.png  used on input line 646.
+(pdftex.def)             Requested size: 345.0pt x 164.9549pt.
+<img/risultati2.png, id=556, 805.0878pt x 369.2997pt>
+File: img/risultati2.png Graphic file (type png)
+<use img/risultati2.png>
+Package pdftex.def Info: img/risultati2.png  used on input line 652.
+(pdftex.def)             Requested size: 345.0pt x 158.2548pt.
+<img/risultati3.png, id=557, 848.4498pt x 397.485pt>
+File: img/risultati3.png Graphic file (type png)
+<use img/risultati3.png>
+Package pdftex.def Info: img/risultati3.png  used on input line 658.
+(pdftex.def)             Requested size: 345.0pt x 161.62344pt.
+
+Overfull \hbox (5.02846pt too wide) in paragraph at lines 664--667
+\OT1/cmr/m/n/10 Osservando il primo grafico []8[], i val-ori si con-cen-trano p
+rin-ci-pal-mente nell'intervallo
+ []
+
+[29 <./img/risultati1.png>] [30 <./img/risultati2.png> <./img/risultati3.png>]
+Overfull \hbox (14.2692pt too wide) in paragraph at lines 669--672
+\OT1/cmr/m/n/10 tribuzione forte-mente sbi-lan-ci-ata verso l'alto. Questo risu
+l-tato sug-gerisce un'elevata
+ []
+
+[31]
+Overfull \hbox (0.628pt too wide) in paragraph at lines 683--684
+[]\OT1/cmr/m/it/10 CodeBLEU vs. ME-TEOR\OT1/cmr/m/n/10 : an-che qui la dis-per-
+sione ^^Re pi-ut-tosto ampia,
+ []
+
+
+Overfull \hbox (0.97282pt too wide) in paragraph at lines 687--690
+\OT1/cmr/m/n/10 Nel com-p-lesso, i val-ori nu-merici ot-tenuti in-di-cano che i
+l codice gen-er-ato dall'LLM
+ []
+
+[32] [33] [34] (./descrizione lavoro.bbl
+Underfull \hbox (badness 1715) in paragraph at lines 30--33
+[]\OT1/cmr/m/n/10 PyGithub De-vel-op-ers.  Py-github doc-u-men-ta-tion.  URL: [
+]$\OT1/cmtt/m/n/10 https : / /
+ []
+
+[35]
+Underfull \hbox (badness 1776) in paragraph at lines 53--57
+[]\OT1/cmr/m/n/10 Hugging Face.  Trans-form-ers: To-k-enizer, 2025.  URL: []$\O
+T1/cmtt/m/n/10 https : / /
+ []
+
+[36]
+Underfull \hbox (badness 1163) in paragraph at lines 169--175
+[]\OT1/cmr/m/n/10 Ruman.  Set-ting top-k, top-p and tem-per-a-ture in llms.  Me
+dium
+ []
+
+[37]) [38] (./descrizione lavoro.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package rerunfilecheck Info: File `"descrizione lavoro".out' has not changed.
+(rerunfilecheck)             Checksum: DD4B5822D158AF9061F187273761E442;6210.
+ ) 
+Here is how much of TeX's memory you used:
+ 11762 strings out of 476025
+ 179391 string characters out of 5790016
+ 2028388 words of memory out of 5000000
+ 31813 multiletter control sequences out of 15000+600000
+ 521277 words of font info for 64 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 75i,9n,76p,1488b,2020s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
+></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
+</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></
+usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><
+/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></
+usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></u
+sr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr
+/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/l
+ocal/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loc
+al/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local
+/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/t
+exlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texl
+ive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive
+/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/20
+23/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2023/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2023/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2023/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2023/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2023/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2023/texmf-dis
+t/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on "descrizione lavoro.pdf" (38 pages, 909052 bytes).
+PDF statistics:
+ 816 PDF objects out of 1000 (max. 8388607)
+ 699 compressed objects within 7 object streams
+ 254 named destinations out of 1000 (max. 500000)
+ 331 words of extra memory for PDF output out of 10000 (max. 10000000)
+

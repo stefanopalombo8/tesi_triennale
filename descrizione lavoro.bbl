@@ -1,0 +1,219 @@
+\begin{thebibliography}{10}
+
+\bibitem{ait_hfcommunity_2023}
+Adem Ait, Javier Luis~C\'{a}novas Izquierdo, and Jordi Cabot.
+\newblock {HFCommunity}: {A} {Tool} to {Analyze} the {Hugging} {Face} {Hub}
+  {Community}.
+\newblock In {\em 2023 {IEEE} {International} {Conference} on {Software}
+  {Analysis}, {Evolution} and {Reengineering} ({SANER})}, pages 728--732, March
+  2023.
+\newblock ISSN: 2640-7574.
+\newblock URL: \url{https://ieeexplore.ieee.org/document/10123660}, \href
+  {https://doi.org/10.1109/SANER56733.2023.00080}
+  {\path{doi:10.1109/SANER56733.2023.00080}}.
+
+\bibitem{banerjee2005meteor}
+Satanjeev Banerjee and Alon Lavie.
+\newblock Meteor: An automatic metric for mt evaluation with improved
+  correlation with human judgments.
+\newblock In {\em Proceedings of the acl workshop on intrinsic and extrinsic
+  evaluation measures for machine translation and/or summarization}, pages
+  65--72, 2005.
+
+\bibitem{CodeXHug}
+{Di Sipio} Claudio, {Di Rocco} Juri, {Di Ruscio} Davide, and Palombo Stefano.
+\newblock Codexhug: A curated dataset of hugging face pre-trained models
+  exploited in github ecosystem.
+\newblock 2024.
+
+\bibitem{pygithub}
+PyGithub Developers.
+\newblock Pygithub documentation.
+\newblock URL: \url{https://pygithub.readthedocs.io/en/stable/index.html}.
+
+\bibitem{devlin2019bertpretrainingdeepbidirectional}
+Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova.
+\newblock Bert: Pre-training of deep bidirectional transformers for language
+  understanding, 2019.
+\newblock URL: \url{https://arxiv.org/abs/1810.04805}, \href
+  {https://arxiv.org/abs/1810.04805} {\path{arXiv:1810.04805}}.
+
+\bibitem{di2025use}
+Juri Di~Rocco, Davide Di~Ruscio, Claudio Di~Sipio, Phuong~T Nguyen, and
+  Riccardo Rubei.
+\newblock On the use of large language models in model-driven engineering.
+\newblock {\em Software and Systems Modeling}, pages 1--26, 2025.
+
+\bibitem{huggingface}
+Hugging {Face}.
+\newblock Hugging {Face} website.
+\newblock URL: \url{https://huggingface.co/}.
+
+\bibitem{huggingface_transformers_tokenizer}
+Hugging Face.
+\newblock Transformers: Tokenizer, 2025.
+\newblock URL:
+  \url{https://huggingface.co/docs/transformers/en/main_classes/tokenizer}.
+
+\bibitem{feng2020codebertpretrainedmodelprogramming}
+Zhangyin Feng, Daya Guo, Duyu Tang, Nan Duan, Xiaocheng Feng, Ming Gong, Linjun
+  Shou, Bing Qin, Ting Liu, Daxin Jiang, and Ming Zhou.
+\newblock Codebert: A pre-trained model for programming and natural languages,
+  2020.
+\newblock URL: \url{https://arxiv.org/abs/2002.08155}, \href
+  {https://arxiv.org/abs/2002.08155} {\path{arXiv:2002.08155}}.
+
+\bibitem{github_rest}
+GitHub.
+\newblock Github {REST API} documentation.
+\newblock URL: \url{https://docs.github.com/en/rest?apiVersion=2022-11-28}.
+
+\bibitem{hou2024large}
+Xinyi Hou, Yanjie Zhao, Yue Liu, Zhou Yang, Kailong Wang, Li~Li, Xiapu Luo,
+  David Lo, John Grundy, and Haoyu Wang.
+\newblock Large language models for software engineering: A systematic
+  literature review.
+\newblock {\em ACM Transactions on Software Engineering and Methodology},
+  33(8):1--79, 2024.
+
+\bibitem{huggingface_model_cards}
+{Hugging Face}.
+\newblock Hugging face model cards, 2025.
+\newblock Ultimo accesso: 2 marzo 2025.
+\newblock URL: \url{https://huggingface.co/docs/hub/model-cards}.
+
+\bibitem{liang2024whatsdocumentedaisystematic}
+Weixin Liang, Nazneen Rajani, Xinyu Yang, Ezinwanne Ozoani, Eric Wu, Yiqun
+  Chen, Daniel~Scott Smith, and James Zou.
+\newblock What's documented in ai? systematic analysis of 32k ai model cards,
+  2024.
+\newblock URL: \url{https://arxiv.org/abs/2402.05160}, \href
+  {https://arxiv.org/abs/2402.05160} {\path{arXiv:2402.05160}}.
+
+\bibitem{mielke2021wordscharactersbriefhistory}
+Sabrina~J. Mielke, Zaid Alyafeai, Elizabeth Salesky, Colin Raffel, Manan Dey,
+  Matthias Gallé, Arun Raja, Chenglei Si, Wilson~Y. Lee, Benoît Sagot, and
+  Samson Tan.
+\newblock Between words and characters: A brief history of open-vocabulary
+  modeling and tokenization in nlp, 2021.
+\newblock URL: \url{https://arxiv.org/abs/2112.10508}, \href
+  {https://arxiv.org/abs/2112.10508} {\path{arXiv:2112.10508}}.
+
+\bibitem{pymongo}
+Inc. MongoDB.
+\newblock Pymongo documentation.
+\newblock URL: \url{https://pymongo.readthedocs.io/en/stable/}.
+
+\bibitem{nguyen2021recommending}
+Phuong~T Nguyen, Juri Di~Rocco, Claudio Di~Sipio, Davide Di~Ruscio, and
+  Massimiliano Di~Penta.
+\newblock Recommending api function calls and code snippets to support software
+  development.
+\newblock {\em IEEE Transactions on Software Engineering}, 48(7):2417--2438,
+  2021.
+
+\bibitem{10.3115/1073083.1073135}
+Kishore Papineni, Salim Roukos, Todd Ward, and Wei-Jing Zhu.
+\newblock Bleu: a method for automatic evaluation of machine translation.
+\newblock In {\em Proceedings of the 40th Annual Meeting on Association for
+  Computational Linguistics}, ACL '02, page 311–318, USA, 2002. Association
+  for Computational Linguistics.
+\newblock \href {https://doi.org/10.3115/1073083.1073135}
+  {\path{doi:10.3115/1073083.1073135}}.
+
+\bibitem{scikit-learn}
+F.~Pedregosa, G.~Varoquaux, A.~Gramfort, V.~Michel, B.~Thirion, O.~Grisel,
+  M.~Blondel, P.~Prettenhofer, R.~Weiss, V.~Dubourg, J.~Vanderplas, A.~Passos,
+  D.~Cournapeau, M.~Brucher, M.~Perrot, and E.~Duchesnay.
+\newblock Scikit-learn: Machine learning in {P}ython.
+\newblock {\em Journal of Machine Learning Research}, 12:2825--2830, 2011.
+
+\bibitem{peeperkorn2024temperaturecreativityparameterlarge}
+Max Peeperkorn, Tom Kouwenhoven, Dan Brown, and Anna Jordanous.
+\newblock Is temperature the creativity parameter of large language models?,
+  2024.
+\newblock URL: \url{https://arxiv.org/abs/2405.00492}, \href
+  {https://arxiv.org/abs/2405.00492} {\path{arXiv:2405.00492}}.
+
+\bibitem{python-concurrent-futures}
+{Python Software Foundation}.
+\newblock {\em ThreadPoolExecutor - Python Documentation}, 2024.
+\newblock URL:
+  \url{https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.ThreadPoolExecutor}.
+
+\bibitem{python_ast}
+{Python Software Foundation}.
+\newblock The {AST} module, 2025.
+\newblock Accessed: 2025-03-04.
+\newblock URL: \url{https://docs.python.org/3/library/ast.html}.
+
+\bibitem{radford2018improving}
+Alec Radford, Karthik Narasimhan, Tim Salimans, Ilya Sutskever, et~al.
+\newblock Improving language understanding by generative pre-training.
+\newblock 2018.
+
+\bibitem{ren2020codebleumethodautomaticevaluation}
+Shuo Ren, Daya Guo, Shuai Lu, Long Zhou, Shujie Liu, Duyu Tang, Neel
+  Sundaresan, Ming Zhou, Ambrosio Blanco, and Shuai Ma.
+\newblock Codebleu: a method for automatic evaluation of code synthesis, 2020.
+\newblock URL: \url{https://arxiv.org/abs/2009.10297}, \href
+  {https://arxiv.org/abs/2009.10297} {\path{arXiv:2009.10297}}.
+
+\bibitem{Richardson_Beautiful_Soup}
+Leonard Richardson.
+\newblock Beautiful soup.
+\newblock \url{https://pypi.org/project/beautifulsoup4/}, 2023.
+\newblock Versione 4.12.3.
+
+\bibitem{Ruman2024}
+Ruman.
+\newblock Setting top-k, top-p and temperature in llms.
+\newblock Medium post, 2024.
+\newblock Accessed: 2025-03-03.
+\newblock URL:
+  \url{https://rumn.medium.com/setting-top-k-top-p-and-temperature-in-llms-3da3a8f74832}.
+
+\bibitem{Sennrich2015NeuralMT}
+Rico Sennrich, Barry Haddow, and Alexandra Birch.
+\newblock Neural machine translation of rare words with subword units.
+\newblock {\em ArXiv}, abs/1508.07909, 2015.
+\newblock URL: \url{https://api.semanticscholar.org/CorpusID:1114678}.
+
+\bibitem{all-MiniLM-L6-v2}
+Sentence-Transformers Team.
+\newblock all-minilm-l6-v2, 2020.
+\newblock URL:
+  \url{https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2}.
+
+\bibitem{journals/corr/abs-2302-13971}
+Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne
+  Lachaux, Timothée Lacroix, Baptiste Rozière, Naman Goyal, Eric Hambro,
+  Faisal Azhar, Aurélien Rodriguez, Armand Joulin, Edouard Grave, and
+  Guillaume Lample.
+\newblock Llama: Open and efficient foundation language models.
+\newblock {\em CoRR}, abs/2302.13971, 2023.
+\newblock URL:
+  \url{http://dblp.uni-trier.de/db/journals/corr/corr2302.html#abs-2302-13971}.
+
+\bibitem{vaswani2017attention}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N Gomez, {\L}ukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock {\em Advances in neural information processing systems}, 30, 2017.
+
+\bibitem{wolf-etal-2020-transformers}
+Thomas Wolf, Lysandre Debut, Victor Sanh, Julien Chaumond, Clement Delangue,
+  Anthony Moi, Pierric Cistac, Tim Rault, Remi Louf, Morgan Funtowicz, Joe
+  Davison, Sam Shleifer, Patrick von Platen, Clara Ma, Yacine Jernite, Julien
+  Plu, Canwen Xu, Teven Le~Scao, Sylvain Gugger, Mariama Drame, Quentin Lhoest,
+  and Alexander Rush.
+\newblock Transformers: State-of-the-art natural language processing.
+\newblock In Qun Liu and David Schlangen, editors, {\em Proceedings of the 2020
+  Conference on Empirical Methods in Natural Language Processing: System
+  Demonstrations}, pages 38--45, Online, October 2020. Association for
+  Computational Linguistics.
+\newblock URL: \url{https://aclanthology.org/2020.emnlp-demos.6/}, \href
+  {https://doi.org/10.18653/v1/2020.emnlp-demos.6}
+  {\path{doi:10.18653/v1/2020.emnlp-demos.6}}.
+
+\end{thebibliography}
